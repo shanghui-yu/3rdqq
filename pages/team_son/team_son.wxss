@@ -1,0 +1,154 @@
+page {
+  height: 100%;
+  background: #f7f7f7;
+}
+.padd {
+  padding-bottom: 100rpx;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+.to-join {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 40rpx;
+  background: #004FE8;
+  color: #fff;
+}
+.team-des{
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+  background: #fff;
+}
+.header-banner{
+  width: 100%;
+}
+.header-banner image{
+  width: 100%;
+}
+.team-des .detail {
+  line-height: 60rpx;
+  font-size: 36rpx;
+  color: #333;
+  word-break: break-all;
+}
+.team-des .footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #848484;
+  padding-bottom: 20rpx;
+}
+.competitionList {
+  padding: 0 20rpx;
+  background: #fff;
+}
+
+.item {
+  padding: 20rpx 0;
+  display: flex;
+}
+
+.line {
+  width: 690rpx;
+  margin: 0 auto;
+  border-top: 1px solid rgb(235, 235, 235);
+}
+
+.competitionItem:last-of-type .line {
+  border-bottom: none;
+}
+
+.logo_wrap {
+  width: 140rpx;
+  height: 140rpx;
+  border: 1px solid #2093FD;
+}
+
+.logo_wrap image {
+  width: 100%;
+  height: 100%;
+}
+
+.item_info {
+  width: 555rpx;
+  padding-left: 15rpx;
+}
+
+.item_info .item_title {
+  height: 80rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.item_detail {
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.item_position {
+  display: flex;
+  align-items: center;
+  color: #858585;
+  flex: 1;
+  overflow: hidden;
+}
+
+.item_position text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.competitionItem .son {
+  color: #2e72ed;
+  margin-right: 40rpx;
+}
+
+.competitionItem .son image {
+  margin: 0 10rpx;
+  width: 24rpx;
+  height: 24rpx;
+  display: inline-block;
+}
+
+.item_position image {
+  width: 32rpx;
+  height: 36rpx;
+  margin-right: 6rpx;
+}
+
+.null {
+  height: 370rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.null image {
+  width: 216rpx;
+  height: 101rpx;
+}
+
+.null view {
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #b0b0b0;
+  font-size: 28rpx;
+  margin-top: 100rpx;
+}

@@ -1,0 +1,29 @@
+<view class="container">
+  <view class='logo'>
+    <image src='{{img.logo1}}'></image>
+  </view>
+  <view class='form'>
+    <view class='form_line'>
+      <view>
+        <image src='{{img.phone}}'></image>
+        <text>手机号</text>
+      </view>
+      <view>
+        <input bindinput="changePhone" type='number'></input>
+      </view>
+      <view bindtap='getCode' class='{{getCode!="获取验证码"?"getting":""}}'>{{getCode}}</view>
+    </view>
+    <view class='form_line'>
+      <view>
+        <image src='{{img.key}}'></image>
+        <text>验证码</text>
+      </view>
+      <view>
+        <input bindinput="changeCode" type='number'></input>
+      </view>
+    </view>
+    <view class='form_sub' bindtap="submitPhone">
+      <view>绑定手机号码</view>
+    </view>
+  </view>
+</view>

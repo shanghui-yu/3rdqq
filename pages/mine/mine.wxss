@@ -1,0 +1,218 @@
+page {
+  height: 100%;
+  background: #2B70F0;
+}
+.container{
+  background: #fff;
+  padding-bottom: 120rpx;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.user_board {
+  height: 307rpx;
+  background: #2B70F0;
+  color: #fff;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+}
+.user_board image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+.user_board view {
+  height: 48rpx;
+  margin-top: 10rpx;
+}
+.mine_item {
+  width: 710rpx;
+  background: #fff;
+  display: flex;
+  height: 167rpx;
+  margin: 0 auto;
+  margin-top: -107rpx;
+  border-radius: 8rpx;
+}
+.mine_tab {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mine_tab image {
+  width: 48rpx;
+  height: 48rpx;
+}
+.mine_tab view{
+  font-size: 24rpx;
+  color: #858585;
+  line-height: 33rpx;
+  margin-top: 10rpx;
+}
+.user_tab {
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  background: #fff;
+}
+.tab_list {
+  padding: 0 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.tab_list view{
+  width: 340rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  border: 1px solid #b0b0b0;
+  border-radius: 6rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+.tab_list .tabsel {
+  color: #333;
+  background: #ebebeb;
+  border-color: #ebebeb;
+}
+/*赛事列表  */
+.competitiom_item {}
+.compete, .team {
+  display: flex;
+  padding: 20rpx;
+}
+.logo_wrap {
+  width: 140rpx;
+  height: 140rpx;
+  border: 1px solid #2093FD;  
+}
+.logo_wrap image{
+  width: 140rpx;
+  height: 140rpx;
+}
+.compete_info{
+  width: 550rpx;
+  padding: 20rpx 0;
+  padding-left: 20rpx;
+  
+}
+.competitiom_item .line, .team_item .line {
+  width: 690rpx;
+  margin: 0 auto;
+  border-top: 1px solid #ebebeb;
+  height: 0px;
+}
+.compete_title {
+  line-height: 40rpx;
+  color: #333;
+  font-size: 28rpx;
+}
+.compete_info>view:last-child {
+  display: flex;
+  height: 40rpx;
+  margin-top: 30rpx;
+  justify-content: space-between;
+  font-size: 26rpx;
+  align-items: center;
+}
+.compete_position {
+  display: flex;
+  align-items: center;
+}
+.compete_position image {
+  width: 32rpx;
+  height: 36rpx;
+  margin-right: 6rpx;
+}
+.compete_position text {
+  font-size: 24rpx;
+  color: #858585;
+}
+.competitiom_item:last-of-type .line {
+  border: none;
+}
+.btn_competiotn {
+  height: 80rpx;
+  background: #f7f7f7;
+  color: #858585;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn_competiotn view:first-child {
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 38rpx;
+  border: 1px solid #2093FD;
+  color: #2093FD;
+}
+.btn_competiotn view:last-child {
+  font-size: 28rpx;
+  height: 40rpx;
+  margin-left: 20rpx;
+}
+.team_num {
+  display: flex;
+  align-items: center;
+  color: #858585;
+}
+.team_num image {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 10rpx;
+}
+.btn_team {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  height: 85rpx;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20rpx;
+  padding-top: 20rpx;
+  background: #fff;
+  z-index: 100;
+}
+.btn_team view {
+  width: 259rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 1px solid #858585;
+  font-size: 28rpx;
+  color: #858585;
+  text-align: center;
+  border-radius: 6rpx;
+  margin: 0 25rpx;
+}
+.isNull {
+  padding: 85px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #999;
+  font-size: 28rpx;
+}
+.isNull image {
+  width: 216rpx;
+  height: 101rpx;
+  margin-bottom: 20rpx;
+}
+
+.son {
+  color: #2e72ed;
+  margin-right: 40rpx;
+}
+.son image{
+  margin:0 10rpx;
+  width: 24rpx;
+  height: 24rpx;
+  display: inline-block;
+}

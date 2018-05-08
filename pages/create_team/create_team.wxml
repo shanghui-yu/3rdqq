@@ -1,0 +1,84 @@
+<view class="container">
+  <view class='form_line'>
+    <view class='item_title'>
+      <image src='{{img.logo}}'></image>
+      <text>球队队徽</text>
+    </view>
+    <view class='clogo' bindtap='uploadLogo'>
+      <view>
+        <image src='{{logo}}' wx:if="{{logo != ''}}"></image>
+      </view>
+      <view wx:if="{{logo == ''}}">
+        <image src='{{img.forward}}'></image>
+      </view>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view class='form_title'>
+      <image src='{{img.name}}'></image>
+      <text>球队名称</text>
+    </view>
+    <view>
+      <input placeholder='输入球队名称' placeholder-style='color: #b0b0b0' value="{{teamName}}" bindinput='getName'></input>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view class='form_title'>
+      <image src='{{img.shortname}}'></image>
+      <text>球队简称</text>
+    </view>
+    <view>
+      <input placeholder='8个字以内' placeholder-style='color: #b0b0b0' value="{{shortName}}" maxlength='8' bindinput='getShortName'></input>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view>
+      <image src='{{img.display}}'></image>
+      <text>所属地区</text>
+    </view>
+    <view>
+      <view bindtap='changeItem' data-type='1'>
+        <view>
+          <text style='color: {{provName == "点击选择" ? "#b0b0b0" : "#666"}}'>{{provName}} {{region}}</text>
+          <image src='{{img.forward}}' wx:if="{{provName == '点击选择'}}"></image>      
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view>
+      <image src='{{img.ctime}}'></image>
+      <text>成立时间</text>
+    </view>
+    <view>
+      <picker mode="date" bindchange='changeItem' data-type='2'>
+        <view>
+          <text style='color: {{ctime == "点击选择" ? "#b0b0b0" : "#666"}}'>{{ctime}}</text>
+          <image src='{{img.forward}}' wx:if="{{ctime == '点击选择'}}"></image>      
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view>
+      <image src='{{img.type}}'></image>
+      <text>球队性质</text>
+    </view>
+    <view>
+      <picker range='{{typeList}}' bindchange='typeSel'>
+        <view>
+          <text style='color: {{typeSel == "点击选择" ? "#b0b0b0" : "#666"}}'>{{typeSel}}</text>
+          <image src='{{img.forward}}' wx:if="{{typeSel == '点击选择'}}"></image>      
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='btn_create' bindtap='toCreate'>创建球队</view>
+</view>
+<view wx:if="{{showArea}}" class="area-Picker">
+  <view class="mark" bindtap="cencal"></view>
+  <view class="picke-header">选择城市</view>
+  <import src="../../template/index.wxml" />
+  <template is="areaPicker" data="{{...areaPicker}}" />
+  <view class="picker-footer" bindtap="okArea">确认</view>
+</view>

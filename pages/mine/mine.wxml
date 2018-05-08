@@ -1,0 +1,98 @@
+<view class="container">
+  <view class='user_board'>
+    <image src='{{userInfo.header}}'></image>
+    <view>{{userInfo.name}}</view>
+  </view>
+  <view class='mine_item'>
+    <view class='mine_tab' wx:for="{{nav}}" wx:key="{{index}}" bindtap='toEdit' data-index='{{index}}'>
+      <image src='{{item.icon}}'></image>
+      <view>{{item.title}}</view>
+    </view>
+  </view>
+  <view class='user_tab'>
+    <view class='tab_list'>
+      <view class='{{tabSel == 1 ? "tabsel":""}}' bindtap='tabChange' data-index='1'>我的赛事</view>
+      <view class='{{tabSel == 2 ? "tabsel":""}}' bindtap='tabChange' data-index='2'>我的球队</view>
+    </view>
+    <view class='competition_list' wx:if="{{tabSel == 1}}">
+      <view>
+        <view class='competitiom_item' 
+          wx:for="{{competition}}"
+          wx:key="{{index}}"
+           bindtap='toDetail' 
+           data-state="{{item.state}}" 
+           data-isSon="{{item.isParentLeague}}" 
+           data-parentid="{{item.parentLeagueId}}"
+           data-card='1' data-id='{{item.leagueid}}'>
+          <view class='compete'>
+            <view class='logo_wrap'>
+              <image src='{{"http://img.haoq360.com" + item.leagueIoc}}'></image>
+            </view>
+            <view class='compete_info'>
+              <view class='compete_title'>{{item.name}}</view>
+              <view>
+                <view class='compete_position'>
+                  <image src='{{img.location}}'></image>
+                  <text>{{item.provinceName}} {{item.cityName}}</text>
+                </view>
+                <view class="son" wx:if="{{item.isParentLeague=='1'}}">
+              <image src='../../images/qiu.png'></image>已有{{item.subLeagueNum}}个子赛事
+            </view>
+                <view>
+                  <text style='color:#62B623' wx:if="{{item.state == '比赛中'}}">{{item.state}}</text>
+                  <text style='color:#FA6D6C' wx:if="{{item.state == '报名中'}}">{{item.state}}</text>
+                  <text style='color:#7BBCFC' wx:if="{{item.state == '比赛结束'}}">已结束</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class='line'></view>
+        </view>
+      </view>
+      <view class='isNull' wx:if="{{noMatch == 1}}">
+        <image src='/images/no_match@3x.png'></image>
+        <view>是时候来场比赛了</view>
+      </view>
+      
+    </view>
+    <view class='team_list'  wx:if="{{tabSel == 2}}">
+      <view>
+         <view class='team_item' wx:for="{{team}}" wx:key="{{index}}" bindtap='toDetail' data-card='2'  data-id='{{item.crteid}}'>
+          <view class='team'>
+            <view class='logo_wrap'>
+              <image src='{{"http://img.haoq360.com" + item.teamIocUrl}}'></image>
+            </view>
+            <view class='compete_info'>
+              <view class='compete_title'>{{item.teamName}}</view>
+              <view>
+                <view class='compete_position'>
+                  <image src='{{img.location}}'></image>
+                  <text>{{item.provName}} {{item.region}}</text>
+                </view>
+                <view class='team_num'>
+                  <image src='{{img.player}}'></image>
+                  <text>{{item.number}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class='line'></view>
+        </view> 
+        <view class='line'></view>
+      </view>
+      <view class='isNull' wx:if="{{noTeam == 1&&!team.length}}">
+        <image src='/images/no_match@3x.png'></image>
+        <view>你落单了，快去找组织</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='btn_team' wx:if="{{tabSel == 2}}">
+  <view bindtap='getTeam' data-index='1'>加入现有球队</view>
+  <view bindtap='getTeam' data-index='2'>创建我的球队</view>
+</view>
+
+<view class='btn_team' wx:if="{{tabSel == 1}}">
+  <view bindtap='getTeam' data-index='4'>创建我的赛事</view>
+</view>

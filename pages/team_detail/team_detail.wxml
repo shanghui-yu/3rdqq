@@ -1,0 +1,347 @@
+<view class="{{team.userid == '不是该球队成员'?'container bottom':'container'}}">
+  <view class='banner'>
+    <view class='competition_logo'>
+      <image wx:if="{{team.teamIocUrl}}" src='{{"http://img.haoq360.com" + team.teamIocUrl}}'></image>
+    </view>
+    <view class='competition_info'>
+      <view class='competition_title'>{{team.teamName}}</view>
+      <view class='competition_detail'>
+        <view class='competition_pos'>
+          <image src="{{img.location}}"></image>
+          <text>{{team.provName}}  {{team.region}}</text>
+        </view>
+        <view class='team_num'>
+          <image src='{{img.num}}'></image>
+          <text>{{team.number}}</text>
+        </view>
+        <view class="edit" wx:if="{{team.userid =='领队'}}">
+          <navigator url="/pages/create_team/create_team?edit={{teamId}}" hover-class="none">编辑
+          </navigator>
+      </view>
+      </view>
+    </view>
+  </view>
+   <view class='nav'>
+    <view wx:for="{{nav}}" wx:key="index">
+      <text class="{{index == tabSel ? 'tabSel': ''}}" bindtap='changeTab' data-index='{{index}}'>{{item}}</text>
+    </view>
+  </view> 
+  <view wx:if="{{tabSel == 0}}">
+    <view class='break'></view>
+    <view class='card_num'>
+      <view bindtap='changeCard' data-card='0'><text class="{{cardSel == 0? 'cardSel':''}}">全部球员</text></view>
+      <view bindtap='changeCard' data-card='1'><text class="{{cardSel == 1? 'cardSel':''}}">参赛球员</text></view>
+    </view>
+    <view class='cardItem' wx:if="{{cardSel == 0}}">
+      <view class='all_player'>
+        <view wx:for="{{player}}" wx:key="{{index}}" class='allplsyer_item' bindtap='check'  data-isManager='{{item.isManager}}' data-id='{{item.userid}}' data-type='1' >
+          <view class='header_wrap'>
+            <image src='{{item.imgurl}}'></image>
+          </view>
+          <view class='player_info'>
+            <view class='player_name'>
+              <view class='name_wrap'>{{item.name}}</view>
+              <!-- <view class='leader_wrap' wx:if="{{item.isLeader == 1}}">领队</view> -->
+              <view class='team_wrap' wx:if="{{item.isPlayer == 1}}">{{item.identity}}</view>
+              <view wx:if="{{item.sigState == '通过'}}" class='regisert_wrap'>
+                <image src='{{img.register}}'></image>
+                <text>已认证</text>
+              </view>
+            </view>
+            <view class='player_pos'>
+              <view wx:if="{{item.teamLocation1}}">{{item.teamLocation1}}</view>
+              <view wx:if="{{item.teamLocation2}}">{{item.teamLocation2}}</view>
+            </view>          
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='cardItem' wx:if="{{cardSel == 1}}">
+      <view class='competition_list'>
+        <view class='compete_item' wx:for="{{com}}" wx:key="*this">
+          <view bindtap='slide' data-index='{{index}}'>
+            <view>{{item.leagueName}}</view>
+            <image style='transform: {{item.down == 0 ? "rotateZ(180deg)":""}}' src='{{img.down}}'></image>
+          </view>
+          <view class='list_title' wx:if="{{item.down == 1}}">
+            <text>参赛人员</text>
+          </view>
+          <view class='com_playerlist'  wx:if="{{item.down == 1}}">
+            <view class='com_player' wx:for="{{item.players}}" wx:key="*this" bindtap='check' data-id='{{p.userid}}' wx:for-item="p">
+              <view class='header_wrap'>
+                <image src='{{"http://img.haoq360.com" + p.imgurl}}'></image>
+              </view>
+              <view class='player_info'>
+                <view class='player_name'>
+                  <view class='name_wrap'>{{p.name}}</view>
+                  <view class='leader_wrap' wx:if="{{p.isLeader == 1}}">领队</view>
+                  <view class='team_wrap' wx:if="{{p.isTeam == 1}}">队伍</view>
+                  <view wx:if="{{p.isPass == 1}}" class='regisert_wrap'>
+                    <image src='{{img.register}}'></image>
+                    <text>已认证</text>
+                  </view>
+                </view>
+                <view class='player_pos'>
+                  <view wx:if="{{p.location1}}">{{p.teamLocation1}}</view>
+                  <view wx:if="{{p.Location2 != ''}}">{{p.teamLocation2}}</view>
+                </view>          
+              </view>
+            </view>
+          </view>
+          <view class='break'  wx:if="{{item.down == 1}}"></view>
+          <view class='list_title'  wx:if="{{item.down == 1}}">
+            <text>工作人员</text>
+          </view>
+          <view class='com_workerlist'  wx:if="{{item.down == 1}}">
+            <view class='com_worker' wx:for="{{item.worker}}" wx:key="*this" bindtap='check' data-id='{{w.userid}}' wx:for-item="w">
+              <view class='header_wrap'>
+                <image src='{{w.header}}'></image>
+              </view>
+              <view class='player_info'>
+                <view class='player_name'>
+                  <view class='name_wrap'>{{w.name}}</view>
+                  <view class='leader_wrap' wx:if="{{w.isLeader == 1}}">领队</view>
+                  <view class='team_wrap' wx:if="{{w.isTeam == 1}}">队伍</view>
+                  <view wx:if="{{w.isRegister == 1}}" class='regisert_wrap'>
+                    <image src='{{img.register}}'></image>
+                    <text>已认证</text>
+                  </view>
+                </view>
+                <view class='player_pos'>
+                  <view wx:for="{{w.pos}}" wx:for-item="pos" wx:key="*this">{{pos}}</view>
+                </view>          
+              </view>            
+            </view>        
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+   <!-- <view class='compe_list' wx:if="{{tabSel == 0}}">
+    <view class='date_item' wx:for="{{competition.dayList}}" wx:key="this">
+      <view class='item_date'>
+        <view>
+          <text>{{item.day_tag}}</text>
+          <text>{{item.date}}</text>
+        </view>
+      </view>
+      <view class='item_list'>
+        <view class='compe_item' wx:for="{{item.competitionList}}" wx:for-item="com" wx:key="*this">
+          <view class='item_info'>
+            <view>{{com.group}}组</view>
+            <view>第{{com.round}}轮</view>
+            <view wx:if="{{com.status != 0}}">{{com.time}}</view>
+          </view>
+          <view class='item_detail'>
+            <view class='host'>
+              <view class='host_logo'>
+                <image src='{{com.hostLogo}}'></image>
+                <view class='host_name'>{{com.hostName}}</view>
+              </view>
+            </view>
+            <view class='source'>
+              <view class='item_res' wx:if="{{com.status == 1}}">{{com.res}}</view>
+              <view class='item_vs' wx:if="{{com.status == 2}}">VS</view>
+              <view class='item_time' wx:if="{{com.status == 0}}">{{com.time}}</view>
+              <view style='background: {{checkLine[com.status].color}}'>{{checkLine[com.status].title}}</view>
+            </view>
+            <view class='guest'>
+              <view class='host_logo'>
+                <image src='{{com.guestLogo}}'></image>
+                <view class='host_name'>{{com.guestName}}</view>
+              </view>
+            </view>            
+          </view>
+        </view>
+      </view>
+    </view>
+  </view> -->
+  <!-- <view class='pointList' wx:if="{{tabSel == 1}}">
+    <view class='break'></view>
+    <view class='cupList'>
+      <view class='list_title'>
+        <text>杯赛</text>
+      </view>
+      <view class='cupList'>
+        <view class='cupList_item' wx:for="{{competition.cupList}}" wx:key="*this">
+          <view class='cup_item'>
+            <view class='cup_title'>{{item.title}}</view>
+            <view class='cup_team'>
+              <view style="color: {{item.teams[0].ishost == 1? '#2B70F0 ': ''}}">{{item.teams[0].name}}</view>
+              <image src="{{item.teams[0].logo}}"></image>
+              <view>{{item.result}}</view>
+              <image src="{{item.teams[1].logo}}"></image>              
+              <view style="color: {{item.teams[1].ishost == 1? '#2B70F0 ': ''}}">{{item.teams[0].name}}</view>
+            </view>
+          </view>
+          <view class='cup_line'></view>
+        </view>
+      </view>
+    </view>
+    <view class='tableList'>
+      <view class='list_title'>
+        <text>联赛</text>
+      </view>
+      <view class='table_info'>
+        <view class='table_title'>
+          <view wx:for="{{tableTitle}}" wx:key="{{index}}">{{item}}</view>
+        </view>
+        <view class='tableItem' wx:for="{{competition.groupList}}" wx:key="*this">
+          <view>{{item.group}}组</view>
+          <view class='line_item' wx:for="{{item.teams}}" wx:for-item="team" wx:key="this">
+            <view>{{index + 1}}</view>
+            <view>{{team.name}}</view>
+            <view>{{team.times}}</view>
+            <view>
+              <text>{{team.win}}/</text>
+              <text>{{team.lose}}/</text>
+              <text>{{team.pointwin}}/</text>
+              <text>{{team.pointlose}}</text>
+            </view>
+            <view>
+              <text>{{team.getPoint}}/</text>
+              <text>{{team.lostPoint}}</text>
+            </view>
+            <view>{{team.sum}}</view>
+            <view>{{team.point}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view> -->
+  <view class='shooterList' wx:if="{{tabSel == 1}}">
+    <view class='break'></view>
+    <view class='shooter_table'>
+      <view class='shooter_table_title'>
+        <view wx:for="{{shooterTitle}}" wx:key="{{index}}">{{item}}</view>
+      </view>
+      <view class='shooter_table_item' wx:for="{{shooter}}" wx:key="{{index}}">
+        <view>{{item.no}}</view>
+        <view>
+          <view>
+            <image src="{{'http://img.haoq360.com' + item.photoUrl}}"></image>
+            <text>{{item.name}}</text>        
+          </view>
+        </view>
+        <!-- <view>
+          <image src="{{item.team_logo}}"></image>
+          <text>{{item.team}}</text>
+        </view> -->
+        <view>
+          <view>{{item.goals}}</view>
+        </view>
+      </view>
+    </view>
+  </view> 
+  <view class='com_list' wx:if="{{tabSel == 2}}">
+  <view class='break'></view>
+    <view class='year_item' wx:for="{{year}}" wx:key="{{index}}">
+      <view class='year_title' bindtap='sildeYear' data-index='{{index}}' style='  border-bottom:{{item.down != 1 ? "1px solid #ebebeb;": ""}}'>
+        <view>{{item.years}}年</view>
+        <image src='{{img.down}}'></image>
+      </view>
+      <view class='yaer_list' wx:if="{{item.down == 1}}">
+        <view class='yaerlist_item' wx:for="{{item.league}}" wx:key="*this" wx:for-item="com">
+          <view class='y_title'>
+            <view>
+              <image src='{{"http://img.haoq360.com" + com.leagueIoc}}'></image>
+              <text>{{com.leagueReferred}}</text>
+            </view>
+            <view>
+              <text>{{com.scheTitle}}</text>
+              <!-- <text>第{{com.round}}轮</text> -->
+            </view>
+          </view>
+          <view class='y_time'>{{com.gameTime}}</view>
+          <view class='y_tab'>
+            <view><image src='{{"http://img.haoq360.com" + com.teamAIocUrl}}'></image></view>
+            <view class="teamName">{{com.teamA}}</view>
+            <view>{{com.state}}</view>
+            <view class="teamName">{{com.teamB}}</view>
+            <view><image src='{{"http://img.haoq360.com" + com.teamBIocUrl}}'></image></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- <view class='teamList' wx:if="{{tabSel == 3}}">
+    <view class='break'></view>
+      <view class='team_list'>
+      <view wx:for="{{competition.teamList}}" wx:key="{{index}}" class='team_item'>
+        <view class='team_logo'>
+          <image src='{{item.logo}}'></image>
+        </view>
+        <view class='team_info'>
+          <view>{{item.name}}</view>
+          <view class='team_position'>
+            <view>
+              <image src='{{img.location}}'></image>
+              <text>{{item.position}}</text>
+            </view>
+            <view>已报名{{item.shooterNum}}人</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>  -->
+  <view class='check_player' wx:if="{{tabSel == 3}}">
+      <view class='all_player'>
+        <view wx:for="{{applyPlayer}}" bindtap='check' data-id='{{item.usinid}}' data-type='2' wx:key="{{index}}" class='allplsyer_item'>
+          <view class='header_wrap'>
+            <image src='{{item.imgurl}}'></image>
+          </view>
+          <view class='player_info'>
+            <view class='player_name'>
+              <view class='name_wrap'>{{item.realName}}</view>
+            </view>
+            <view class='player_pos'>
+              <view wx:if="{{item.teamLocation1}}">{{item.teamLocation1}}</view>
+              <view wx:if="{{item.teamLocation2}}">{{item.teamLocation2}}</view>
+            </view>          
+          </view>
+        </view>
+      </view>
+      <view class='isNull' wx:if="{{noApply == 1}}">
+        <image src='/images/no_match@3x.png'></image>
+        <view>无人申请，快去招募队友吧</view>
+      </view>
+  </view>
+</view>
+<form report-submit class='btn_team' bindsubmit='getTeam' data-id='{{team.crteid}}' wx:if="{{team.userid == '不是该球队成员'}}">
+  <button hover-class="none" plain formType="submit">申请入队</button>
+</form>
+
+<!-- 确认或者退队弹出层 -->
+
+<view class="confim" wx:if="{{confim.show}}">
+  <view class="mark"></view>
+  <view class="weui_dialog">
+    <view class="weui_dialog_title">{{confim.title}}</view>
+    <view class="weui_dialog_bd">{{confim.mes}}</view>
+    <view class="weui_dialog_ft">
+      <view class="weui_btn_dialog default" bindtap='cencleConfim'>取消</view>
+      <view class="weui_btn_dialog primary" bindtap='apply'>确定</view>
+    </view>
+  </view>
+</view>
+
+<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{!showSuspension}}">
+  <image mode="scaleToFill" src="../../images/icon_menu.png"></image>
+</view>
+<view class="suspension" wx:if="{{showSuspension}}">
+  <navigator class="item item_match" haver-class="none" open-type="switchTab" url="/pages/index/index" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_saishi.png"></image>
+    赛事
+  </navigator>
+  <navigator class="item item_btn" haver-class="none" open-type="switchTab" url="/pages/team/team" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_team.png"></image>
+    球队
+  </navigator>
+  <navigator class="item item_me" haver-class="none" open-type="switchTab" url="/pages/mine/mine" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_my.png"></image>
+    我的
+  </navigator>
+  <view class="close" bindtap="toggetshowSuspension">
+    <image mode="scaleToFill" src="../../images/icon_close.png"></image>
+  </view>
+</view>

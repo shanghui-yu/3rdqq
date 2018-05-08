@@ -1,0 +1,23 @@
+<view class="container">
+  <view class='message_list' wx:if="{{messageList.length!=0}}">
+    <view class='message_item' wx:for="{{messageList}}" wx:key="{{index}}" style='background:{{item.isRead == 1 ? "#fff" : "#f6f9f9"}}' bindtap='read' data-id='{{item.messageId}}' data-read="{{item.isRead}}" data-index='{{index}}'>
+      <view class='status_img'>
+        <image wx:if="{{item.isRead == 1}}" src="{{img.read}}" class='read'></image>
+        <image wx:if="{{item.isRead == 0}}" src="{{img.unread}}" class='unread'></image>
+        <view>{{typeList[item.messageType]}}</view>
+      </view>
+      <view class='message_info'>
+        <view class='item_title'>
+          <view>{{item.title}}</view>
+          <view>{{item.messageTime}}</view>
+        </view>
+        <view class='item_info'>{{item.messageContent}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='null' wx:if="{{messageList.length == 0}}">
+    <image src='{{img.isNull}}'></image>
+    <view>暂无消息</view>
+  </view>
+  <view class='tobottom' wx:if="{{tobottom == 1}}">到底啦</view>
+</view>

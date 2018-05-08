@@ -1,0 +1,108 @@
+<view class="container">
+  <view class='form_line'>
+    <view class='form_name'>
+      <image src='{{img.header}}'></image>
+      <text>头像</text>
+    </view>
+    <view class='show_header' bindtap='setHeader'>
+      <image src='{{userInfo.header}}' class='uesr_header'></image>
+      <image src='{{img.forward}}' class='forward'></image>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view class='form_name'>
+      <image src='{{img.age}}'></image>
+      <text>球龄</text>
+    </view>
+    <view>
+      <input type='number' maxlength="2" value='{{userInfo.startGoalYear}}' bindinput='getInput' data-index='1'></input>
+      <text>年</text>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view class='form_name'>
+      <image src='{{img.name}}'></image>
+      <text>昵称（必填）</text>
+    </view>
+    <view>
+      <input value='{{userInfo.name}}' maxlength='8' bindinput='getInput' data-index='2'></input>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view class='form_name'>
+      <image src='{{img.sex}}'></image>
+      <text>性别</text>
+    </view>
+    <view class='form_radio'>
+      <text bindtap='setSex' data-sex='2' class='{{userInfo.sex == 2 ? "selSex" : ""}}'>男</text>
+      <text bindtap='setSex' data-sex='1' class='{{userInfo.sex == 1 ? "selSex" : ""}}'>女</text>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view class='form_name'>
+      <image src='{{img.born}}'></image>
+      <text>出生年月</text>
+    </view>
+    <view class='form_picker'>
+      <picker mode="date" bindchange='setBrithday' end="{{nowData}}">
+        <view>{{userInfo.birTime}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view class='form_name'>
+      <image src='{{img.height}}'></image>
+      <text>身高</text>
+    </view>
+    <!-- <view>
+      <input type='number' bindinput='getInput' data-index='3' value='{{userInfo.height}}'></input>
+      <text>cm</text>
+    </view> -->
+    <view class="row-wrap">
+      <picker mode="selector" bindchange="bindCasPickerChange" range="{{casArray}}">
+        <view>
+          <text>{{casArray[casIndex]}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='form_line'>
+    <view class='form_name'>
+      <image src='{{img.weight}}'></image>
+      <text>体重</text>
+    </view>
+    <!-- <view>
+      <input type='number' bindinput='getInput' data-index='0' value='{{userInfo.weight}}'></input>
+      <text>KG</text>
+    </view> -->
+    <view class="row-wrap">
+      <picker mode="selector" bindchange="bindWeightPickerChange" range="{{weight}}">
+        <view>
+          <text>{{weight[weightIndex]}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='break'></view>
+  <view class='form_tab'>
+    <view class='form_name tab_name'>
+      <image src='{{img.pos}}'></image>
+      <text>球队位置</text>
+    </view>
+    <view class='tab_list'>
+      <view bindtap='setMultiple' data-ind='1' data-index='{{index}}' class='tab_item {{item.sel == 1 ? "posSel":"nosel"}}' wx:for="{{positionList}}" wx:key="{{index}}">{{item.name}}</view>
+    </view>
+  </view>
+  <view class='form_tab'>
+    <view class='form_name tab_name'>
+      <image src='{{img.tec}}'></image>
+      <text>技术特点</text>
+    </view>
+    <view class='tab_list'>
+      <view class='tab_item {{item.sel == 1 ? "propSel":""}}' bindtap='setMultiple' data-ind = '2' data-index='{{index}}' wx:for="{{props}}" wx:key="*this">{{item.title}}</view>
+    </view>
+  </view>
+  <view class='update'>
+    <view bindtap='subData'>保存</view>
+  </view>
+</view>

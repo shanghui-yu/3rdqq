@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/team/team",
+    "pages/mine/mine",
+    "pages/competition/competition",
+    "pages/create_competition/create_competition",
+    "pages/upload/upload",
+    "pages/create_team/create_team",
+    "pages/team_detail/team_detail",
+    "pages/my_info/my_info",
+    "pages/message/message",
+    "pages/authentication/authentication",
+    "pages/player_info/player_info",
+    "pages/login/login",
+    "pages/team_son/team_son",
+    "pages/areaList/areaList"
+  ],
+  "tabBar": {
+    "selectedColor": "#2B70F0",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "赛事",
+        "iconPath": "/images/icon-index-unselect.png",
+        "selectedIconPath": "/images/icon-index-select.png"
+      },
+      {
+        "pagePath": "pages/team/team",
+        "text": "球队",
+        "iconPath": "/images/icon-team-unselect.png",
+        "selectedIconPath": "/images/icon-team-select.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "/images/icon-mine-unselect.png",
+        "selectedIconPath": "/images/icon-mine-select.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2B70F0",
+    "navigationBarTitleText": "赛事",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": false
+  }
+}
+
+

@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="header-banner">
+    <image mode="scaleToFill" src='http://img.haoq360.com{{detail.leagueCover}}' style="height:{{wh}}"></image>
+  </view>
+  <!-- 详情 -->
+  <view class="team-des">
+    <text class="detail">{{detail.name}}</text>
+    <view class="footer">
+      <text>{{detail.provinceName}}</text>
+      <text>{{detail.startTime}}-{{detail.endTime}}</text>
+      <text>{{detail.subLeagueNum}}个子赛事</text>
+    </view>
+  </view>
+  <!-- 列表 -->
+  <view class='competitionList'>
+    <view class='competitionItem' wx:for="{{competition}}" wx:key="index">
+      <view class='item' bindtap='toDetail' data-id='{{item.leagueid}}' data-isSon="{{item.isParentLeague}}">
+        <view class='logo_wrap'>
+          <image src='http://img.haoq360.com{{item.leagueIoc}}'></image>
+        </view>
+        <view class='item_info'>
+          <view class='item_title'>{{item.name}}</view>
+          <view class='item_detail'>
+            <view class='item_position'>
+              <image src='{{img.location}}'></image>
+              <text>{{item.provinceName}} {{item.cityName}}</text>
+            </view>
+            <view class="son" wx:if="{{item.isParentLeague=='1'}}">
+              <image src='../../images/qiu.png'></image>已有{{item.subLeagueNum}}个子赛事
+            </view>
+            <text style='color:#62B623' wx:if="{{item.state == '比赛中'}}">{{item.state}}</text>
+            <text style='color:#FA6D6C' wx:if="{{item.state == '报名中'}}">{{item.state}}</text>
+            <text style='color:#7BBCFC' wx:if="{{item.state == '比赛结束'}}">已结束</text>
+          </view>
+        </view>
+      </view>
+      <view class='line'></view>
+    </view>
+    <view class='null' wx:if="{{competition&&!competition.length}}">
+      <image src='/images/no_match@3x.png'></image>
+      <view>暂无子赛事</view>
+    </view>
+  </view>
+</view>
+<!-- <view class="to-join" bindtap="toJoin" wx:if="{{state=='报名中'}}">赛事报名</view> -->

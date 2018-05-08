@@ -1,0 +1,67 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+/* 右侧悬浮菜单按钮 */
+.suspension_btn{
+  position: fixed;
+  right: 10rpx;
+  width: 130rpx;
+  height: 130rpx;
+  bottom: 75rpx;
+  z-index: 115;
+}
+.suspension_btn image{
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+}
+.suspension{
+  z-index: 115;
+  position: fixed;
+  right: 35rpx;
+  bottom: 116rpx;
+  background-image: linear-gradient(-226deg, #3853FF 0%, #187ADF 42%, #00EAF8 100%);
+  box-shadow: 0 8px 25px 0 rgba(43,112,240,0.40);
+  width:80rpx;
+  height: 375rpx;
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  border-top-left-radius: 40rpx;
+  border-top-right-radius: 40rpx;
+  border-bottom-right-radius: 35rpx;
+  border-bottom-right-radius: 35rpx;
+}
+.suspension .item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.suspension .item image{
+  display: block;
+  margin-top: 24rpx;
+}
+.suspension .item_match image{
+  width: 40rpx;
+  height: 40rpx;
+  
+}
+.suspension .item_btn image{
+  width: 32rpx;
+  height: 40rpx;
+  margin-top: 22rpx;
+}
+.suspension .item_me image{
+  width: 35rpx;
+  height: 38rpx;
+  margin-top: 28rpx;
+}
+.suspension .close image{
+  width: 128rpx;
+  height: 128rpx;
+  margin: 13rpx 0 0 -25rpx;
+  display: block;
+}

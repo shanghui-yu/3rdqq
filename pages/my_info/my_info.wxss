@@ -1,0 +1,144 @@
+page {
+  height: 100%;
+  background: #f7f7f7;
+}
+.form_line {
+  height: 120rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+  justify-content: space-between;
+  border-bottom: 1px solid #ebebeb;
+}
+.form_line>view {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  height: 40rpx;
+}
+.form_name {
+  font-size: 28rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+.show_header {
+  width: 400rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.form_name image {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 20rpx;
+}
+.form_line input {
+  height: 40rpx;
+  font-size: 28rpx;
+  color: #333;
+  text-align: right;
+}
+.show_header .uesr_header {
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 10rpx;
+  border-radius: 50%;
+}
+.show_header .forward {
+  width: 32rpx;
+  height: 32rpx;
+}
+.form_radio {
+  display: flex;
+  align-items: center;
+  height: 60rpx;
+}
+.form_radio text {
+  width: 120rpx;
+  height: 60rpx;
+  font-size: 24rpx;
+  background: #F7F8FA;
+  text-align: center;
+  color: #b0b0b0;
+  border-radius: 100rpx;
+  line-height: 60rpx; 
+}
+.form_radio text:first-child {
+  margin-right: 20rpx;
+}
+.form_radio .selSex {
+  background: #2B70F0;
+  color: #fff;
+}
+.form_line .form_picker {
+  height: 120rpx;
+}
+.form_picker view {
+  width: 400rpx;
+  font-size: 24rpx;
+  color: #333;
+  text-align: right;
+  height: 120rpx;
+  line-height: 120rpx;
+}
+.break {
+  height: 20rpx;
+  background: #f7f7f7;
+}
+.tab_name {
+  background: #fff;
+  height: 120rpx;
+  padding: 0 20rpx;
+}
+.tab_list {
+  padding-left: 150rpx;
+  padding-right: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+}
+.tab_list view.posSel,.tab_list view.propSel {
+  color: #fff;
+  background: #2B70F0;
+}
+
+.tab_item {
+  width: 175rpx;
+  height: 60rpx;
+  text-align: center;
+  background: #F7F8FA;
+  border-radius: 100px;
+  color: #b0b0b0;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+  line-height: 60rpx;
+  margin-right: 20rpx;
+}
+.tab_item:nth-of-type(3),.tab_item:nth-of-type(6) {
+  margin-right: 0;
+}
+.update {
+  height: 140rpx;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.update view {
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 1px solid #858585;
+  border-radius: 4px;
+  text-align: center;
+  width: 340rpx;
+  color: #858585;
+}
+.section{
+      font-size:28rpx;
+      margin-left: 50rpx;
+      margin-top: 30rpx;
+    }
+    .on{display: block}
+    .off{display: none}

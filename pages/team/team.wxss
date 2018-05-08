@@ -1,0 +1,227 @@
+page {
+  height: 100%;
+  /* background: #f7f7f7; */
+}
+.container {
+  height: 100%;
+}
+.search {
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  box-shadow:0px 3px 1px #ccc;
+  background: #fff;
+}
+.inner_search {
+  height: 60rpx;
+  display: flex;
+}
+.dispicker {
+  padding: 0 15px;
+  width: 145rpx;
+  border-right: 1px solid #999;
+  display: flex;
+  align-items: center;
+  height: 60rpx;
+}
+.dispicker .picker {
+  min-width:145rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+}
+.dispicker image:first-child {
+  width: 32rpx;
+  height: 38rpx;
+  /* vertical-align: middle; */
+  /* margin-top: 30rpx; */
+}
+.dispicker text:nth-child(2) {
+  height: 32rpx;
+  line-height: 32rpx;
+  font-size: 24rpx;
+  width: 80rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #999;
+  margin: 0 10rpx 0 10rpx;
+}
+.dispicker image:last-child {
+  width:24rpx;
+  height: 24rpx;
+}
+.input_search {
+  padding: 0 15rpx;
+  display: flex;
+  align-items: center;
+}
+.input_search image {
+  width:  38rpx;
+  height: 38rpx;
+}
+.input_search input {
+  width: 410rpx; 
+  padding: 0 10rpx;
+  font-size: 28rpx;
+}
+.break {
+  height: 20rpx;
+  background: rgb(247, 247, 247);
+}
+.competitionList {
+  padding: 0 20rpx;
+  background: #fff;
+  /* margin-bottom: 80rpx; */
+  min-height: calc(100% - 200rpx);
+}
+.item {
+  padding: 20rpx 0;
+  /* height: 140rpx; */
+  display: flex;
+}
+.line {
+  width:690rpx;
+  margin: 0 auto;
+  height: 2px;  
+  /* background: red; */
+  border-bottom: 1px solid rgb(235, 235, 235);  
+}
+/* .competitionItem:last-of-type .line{
+   border-bottom: none; 
+} */
+.competitionList view:last-child>.line {
+  border: none;
+}
+.logo_wrap {
+  width: 140rpx;
+  height: 140rpx;
+  border: 1px solid #2093FD;
+}
+.logo_wrap image {
+  width: 100%;
+  height: 100%;
+}
+.item_info {
+  width: 555rpx;
+  padding-left: 15rpx;
+}
+.item_info .item_title{
+  height: 80rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.item_detail {
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.item_position {
+  display: flex;
+  align-items: center;
+  color: #858585;
+}
+.item_num {
+  display: flex;
+  align-items: center;
+  color: #858585;
+}
+.item_num image{
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+.item_position image{
+  width: 32rpx;
+  height: 36rpx;
+  margin-right: 6rpx;
+}
+.create_competition {
+  height: 80rpx;
+  background: #f7f7f7;
+  color: #2093FD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  position: fixed;
+  bottom: 0;
+  width: 100%; 
+}
+.create_competition view {
+  width:38rpx;
+  height: 38rpx;
+  border: 1px solid #2093FD;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32rpx;
+  font-size: 36rpx;
+  margin-right: 10rpx;
+}
+.null {
+  height: 370rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.null image {
+  width: 216rpx;
+  height: 101rpx;
+}
+.null view {
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #b0b0b0;
+  font-size: 28rpx;
+}
+.area {
+  position: fixed;
+  top: 100rpx;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+}
+.list_title {
+  padding: 0 20rpx;
+  display: flex;
+  height: 100rpx;
+  border-bottom: 1px solid #ebebeb;
+  align-items: center;
+}
+.list_title view{
+  height: 45rpx;
+  line-height: 45rpx;
+  font-size: 32rpx;
+}
+.list_title view:first-child {
+  width: 280rpx;
+}
+.list_wrap {
+  display: flex;
+  padding: 0 20rpx;
+  height: 100%;
+  padding-bottom: 100rpx;
+  box-sizing: border-box;
+}
+.list_wrap .province {
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+}
+.list_wrap>view>view{
+  width: 280rpx;
+  font-size: 28rpx;
+  color: #666;
+  height: 70rpx;
+  line-height: 70rpx;
+}
+.list_wrap>view>view text {
+  padding: 10rpx 0;
+}
+.team_wrap {
+  height: 80rpx;
+}

@@ -1,0 +1,127 @@
+<view class="container">
+  <view class='user_board'>
+    <image src='{{userInfo.imgurl}}'></image>
+    <view>{{userInfo.nickname}}</view>
+  </view>
+  <view class='list_wrap'>
+    <view class='info_list'>
+      <view>
+        <view>{{userInfo.height}}cm</view>
+        <view>身高</view>
+      </view>
+      <view>
+        <view>{{userInfo.weight}}kg</view>
+        <view>体重</view>
+      </view>
+      <view>
+        <view>{{userInfo.ages}}岁</view>
+        <view>年龄</view>
+      </view>
+      <view>
+        <view>{{userInfo.startGoalYear}}年</view>
+        <view>球龄</view>
+      </view>
+      <view>
+        <view>{{userInfo.teamLocation1}}</view>
+        <view>位置1</view>
+      </view>
+      <view wx:if="{{userInfo.teamLocation2 != ''}}">
+        <view>{{userInfo.teamLocation2}}</view>
+        <view>位置2</view>
+      </view>                          
+    </view>
+  </view>
+  <view class='tab_list'>
+    <view class='tab_title'>
+      <text>参加赛事</text>
+    </view>
+    <view class='tab_info'>
+      <view class='tab_item' wx:for="{{competition}}" wx:key="{{index}}" bindtap='toDetail' data-index='{{idnex}}' data-order='1' data-id='{{item.leagueid}}'>
+        <view>
+          <view class='logo_wrap com_logo'>
+            <image src='{{item.leagueIoc}}'></image>
+          </view>
+          <view class='item_info'>
+            <view class='item_info_title'>{{item.name}}</view>
+            <view class='item_detail'>
+              <view class='item_position'>
+                <image src='{{img.location}}'></image>
+                <view>{{item.cityName}} {{item.region}}</view>
+              </view>
+              <view>
+                <text style='color:#62B623' wx:if="{{item.state == '比赛中'}}">{{item.state}}</text>
+                <text style='color:#FA6D6C' wx:if="{{item.state == '报名中'}}">{{item.state}}</text>
+                <text style='color:#7BBCFC' wx:if="{{item.state == '比赛结束'}}">已结束</text>
+              </view>
+            </view>
+          </view>      
+        </view>
+        <view class='line'></view>
+      </view>
+    </view>
+  </view>
+   <view class='isNull' wx:if="{{noLeague == 1}}">
+        <image src='/images/null@3x.png'></image>
+        <view>盼星星 盼月亮 盼比赛</view>
+      </view>
+  <view class='tab_list'>
+    <view class='tab_title'>
+      <text>效力球队</text>
+    </view>
+    <view class='tab_info'>
+      <view class='tab_item' wx:for="{{team}}" wx:key="{{index}}"  data-index='{{index}}' data-order='2'  data-id='{{item.crteid}}'>
+        <view>
+          <view class='logo_wrap com_logo'>
+            <image src='{{item.teamIocUrl}}'></image>
+          </view>
+          <view class='item_info'>
+            <view class='item_info_title'>{{item.teamName}}</view>
+            <view class='item_detail'>
+              <view class='item_position'>
+                <image src='{{img.location}}'></image>
+                <view>{{item.cityName}} {{item.region}}</view>
+              </view>
+              <view class='item_num'>
+                <image src='{{img.player}}'></image>
+                <text>{{item.number}}</text>
+              </view>
+            </view>
+          </view>      
+        </view>
+        <view class='line'></view>
+      </view>
+    </view>
+  </view>
+   <view class='isNull' wx:if="{{noTeam == 1}}">
+        <image src='/images/null@3x.png'></image>
+        <view>万事俱备 只差球队</view>
+      </view>
+  <view class='state' wx:if="{{urlState == 1||isManager==1||isme}}">
+    <view bindtap='clear' data-type="0" wx:if='{{intro == 1&& !isme||isManager==1 && !isme}}'>移出球队</view>
+    <view bindtap="toMover" wx:if='{{intro == 1&& !isme||isManager==1&& !isme }}'>移交领队</view>
+    <view bindtap="clear" data-type="1" wx:if='{{intro == 1 && isme}}'>退出球队</view>
+    <view bindtap='check' data-yn='1' wx:if='{{intro == 2}}'>同意</view>
+    <view bindtap='check' data-yn='0' wx:if='{{intro == 2}}'>驳回</view>
+  </view>
+</view>
+
+<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{!showSuspension}}">
+  <image mode="scaleToFill" src="../../images/icon_menu.png"></image>
+</view>
+<view class="suspension" wx:if="{{showSuspension}}">
+  <navigator class="item item_match" haver-class="none" open-type="switchTab" url="/pages/index/index" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_saishi.png"></image>
+    赛事
+  </navigator>
+  <navigator class="item item_btn" haver-class="none" open-type="switchTab" url="/pages/team/team" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_team.png"></image>
+    球队
+  </navigator>
+  <navigator class="item item_me" haver-class="none" open-type="switchTab" url="/pages/mine/mine" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_my.png"></image>
+    我的
+  </navigator>
+  <view class="close" bindtap="toggetshowSuspension">
+    <image mode="scaleToFill" src="../../images/icon_close.png"></image>
+  </view>
+</view>

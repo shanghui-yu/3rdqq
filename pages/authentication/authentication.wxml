@@ -1,0 +1,73 @@
+<view class="container">
+  <view class='pass' wx:if="{{authenticationPass == 1}}">
+    <view class='break'></view>
+    <view class='show_tab'>
+      <view class='card_wrap'>
+        <view class='card'>
+          <view class='header'>
+            <image src='{{photoUrl}}'></image>
+          </view>
+          <view class='authentication_info'>
+            <view>姓名：{{realname}}</view>
+            <!-- <view>认证时间：{{authentication.year}}</view> -->
+            <view>身份证号：{{cardId}}</view>
+          </view>
+        </view>    
+      </view>
+    </view>
+    <view class='symbol_tab'>
+      <image src='{{img.symbol}}'></image>
+      <view>恭喜您已通过实名认证</view>
+    </view>
+  </view>
+  <view wx:if="{{authenticationPass != 1}}">
+    <view class='break'></view>
+    <view class='picker'>
+        <view class='auth_title'>
+          <view>
+            <text>证件类型</text>
+          </view>
+          <picker bindchange='changeType' range='{{cardType}}'>
+            <view>
+              <text>{{cardType[selType]}}</text>
+              <image src='{{img.slide}}'></image>
+            </view>
+          </picker>
+        </view>
+    </view>
+    <view class='img_list'>
+      <view class='up_item' wx:for="{{uploadImg[selType]}}" wx:key="{{imdex}}" style='border-bottom: {{index + 1 == uploadImg[selType].length ? "none":""}}'>
+        <view class='img_ex'>
+          <image class='ex{{index}}' src='{{item.ex}}'></image>
+          <view>示例照片</view>
+        </view>
+        <view class='upload'>
+          <view class='btn_upload{{index}}' wx:if="{{!item.file}}" bindtap='uploadImg' data-index='{{index}}'>+</view>
+          <image class='ex{{index}}' src="{{'http://img.haoq360.com' + item.file}}" bindtap='uploadImg' data-index='{{index}}' wx:if="{{item.file}}"></image>
+          <view class='upload_info'>{{item.info}}</view>
+        </view>
+      </view>
+      <view class='form'>
+        <view class='form_line'>
+          <view>真实姓名</view>
+          <input placeholder='点击输入真实姓名' bindinput='getInput' data-index='0' placeholder-style='color:#b0b0b0;' value="{{subRealName}}"></input>        
+        </view>
+        <view class='form_line'>
+          <view>证件号码</view>
+          <input placeholder='点击输入证件号码' bindinput='getInput' data-index='1' placeholder-style='color:#b0b0b0;' value="{{subCardId}}"></input>        
+        </view>        
+      </view>
+      <view class='subData' bindtap='subData'>提交</view>
+    </view>
+  </view>
+</view>
+<view class='modal' wx:if="{{authenticationPass == 0 || authenticationPass == 2}}">
+  <view class='window'>
+    <view class="win_title">提示</view>
+    <view class='win_info'>
+      <view class='win_item' wx:if="{{authenticationPass == 0}}">认证正在审核中</view>
+      <view class='win_item' wx:if="{{authenticationPass == 2}}">{{reason}}</view>
+    </view>
+    <view class='cancel_modal' bindtap='cancelModal'>确定</view>
+  </view>
+</view>

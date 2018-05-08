@@ -1,0 +1,229 @@
+<view class="{{state=='报名中'?'container padd':'container'}}">
+  <view class='banner'>
+    <view class='competition_logo'>
+      <image src='{{competition.leagueIoc}}'></image>
+    </view>
+    <view class='competition_info'>
+      <view class='competition_title'>{{competition.name}}</view>
+      <view class='competition_info'>
+        <view class='competition_pos'>
+          <image src="{{img.location}}"></image>
+          <text>{{competition.provinceName}}  {{competition.cityName}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+   <view class='nav'>
+    <view wx:for="{{nav}}" wx:key="index">
+      <text class="{{index == tabSel ? 'tabSel': ''}}" bindtap='changeTab' data-index='{{index}}'>{{item}}</text>
+    </view>
+  </view> 
+   <view class='compe_list' wx:if="{{tabSel == 0}}">
+    <view class='date_item' wx:for="{{dayList}}" wx:key="this">
+      <view class='item_date'>
+        <view>
+          <text>{{item.date}}</text>
+        </view>
+      </view>
+      <view class='item_list'>
+        <view class='compe_item' wx:for="{{item[item.date]}}" bindtap="toase" wx:for-item="com" wx:key="*this">
+          <view class='item_info'>
+            <view>{{com.scheTitle}}</view>
+          </view>
+          <view class='item_detail'>
+            <view class='host'>
+              <view class='host_logo'>
+                <image src='http://img.haoq360.com{{com.teamAIocUrl}}'></image>
+                <view class='host_name'>{{com.teamA}}</view>
+              </view>
+            </view>
+            <view class='source'>
+              <view class='item_res' wx:if="{{com.endType == '3'}}">
+                <text wx:if="{{com.teamAGoals == '-1' && com.teamBGoals == '-1'&&com.teamAPenaly =='-1' &&com.teamBPenaly=='-1' }}">-</text>
+                <text wx:if="{{com.teamAGoals == '-1' && com.teamBGoals == '-1'&&com.teamAPenaly !='-1' &&com.teamBPenaly!='-1' }}">{{'0 - 0'+'('+com.teamAPenaly+'-'+com.teamBPenaly+')'}}</text>
+                <text wx:if="{{com.teamAGoals != '-1' || com.teamBGoals != '-1'}}">{{com.teamAGoals+'-'+com.teamBGoals}}</text>
+              </view>
+              <view class='item_vs' wx:if="{{com.endType == '2'}}">VS</view>
+              <view class='item_time' wx:if="{{com.endType == 1}}">{{com.gameTime}}</view>
+              <!-- <view wx:if="{{com.endType == '1'}}" class='live'>即将直播</view>
+              <view wx:if="{{com.endType == '2'}}" class='live'>正在直播</view>
+              <view wx:if="{{com.endType == '3'}}" class='live'>直播回放</view> -->
+              <view wx:if="{{com.videoType=='2' && com.endType == '3'}}" style='background:{{com.endType == "1" ? "#FA6D6C":""}}'>即将直播</view>
+              <view wx:if="{{com.videoType=='2' &&com.endType == '2'}}" style='background:{{com.endType == "2" ? "#62B623":""}}'>正在直播</view>
+              <view wx:if="{{com.videoType=='2' &&com.endType == '1'}}" style='background:{{com.endType == "3" ? "#7BBCFC":""}}'>直播回放</view>
+
+              <view wx:if="{{com.videoType=='0' &&com.endType == '3'}}" class="no-video" style='color:#96c6ee'>已结束</view>
+              <view wx:if="{{com.videoType=='0' &&com.endType == '2'}}" class="no-video" style='color:#93b86b'>比赛中</view>
+              <view wx:if="{{com.videoType=='0' &&com.endType == '1'}}" class="no-video" style='color:#e18a92'>未开始</view>
+            </view>
+            <view class='guest'>
+              <view class='host_logo'>
+                <image src='http://img.haoq360.com{{com.teamBIocUrl}}'></image>
+                <view class='host_name'>{{com.teamB}}</view>
+              </view>
+            </view>            
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='null' wx:if="{{dayList&&!dayList.length}}">
+      <image src='/images/no_match@3x.png'></image>
+      <view>{{message}}</view>
+    </view>
+  </view>
+  <view class='pointList' wx:if="{{tabSel == 1}}">
+    <view class='break'></view>
+    <view class='cupList' wx:if="{{competition.leagueType == 2}}">
+      <!-- <view class='list_title'>
+        <text>杯赛</text>
+      </view> -->
+      <view class='cupList'>
+        <view class='cupList_item' wx:for="{{point}}" wx:key="point">
+          <view class='cup_item' wx:if="{{item.stageName}}">
+            <view class='cup_title'>{{item.stageName}}</view>
+            <view class='cup_team' wx:for="{{item.rows1}}" wx:key="item" wx:for-item="cup">
+              <view style="color: {{item.rows1[0].ishost == 1? '#2B70F0 ': ''}}">{{cup.teamA}}</view>
+              <image src="{{'http://img.haoq360.com' + cup.teamAIocUrl}}"></image>
+              <view>{{cup.teamAgoals}} - {{cup.teamBgoals}}</view>
+              <image src="{{'http://img.haoq360.com' + cup.teamBIocUrl}}"></image>         
+              <view style="color: {{item.teams[1].ishost == 1? '#2B70F0 ': ''}}">{{cup.teamB}}</view>
+            </view>
+          </view>
+          <view class='tableItem' wx:else>
+            <view class='table_title'>
+              <view wx:for="{{tableTitle}}" wx:key="{{index}}">{{item}}</view>
+            </view>
+            <view wx:for="{{item.rows1}}" wx:for-item="team" wx:key="this">
+              <view wx:if="{{team.no==1}}" class="names">{{team.group_name}}</view>
+              <view class='line_item' >
+                <view>{{team.no}}</view>
+                <view>{{team.teamName}}</view>
+                <view>{{team.matchnum}}</view>
+                <view>
+                  <text>{{team.SPFValue}}</text>
+                </view>
+                <view>
+                  <text>{{team.allJinNum}}/</text>
+                  <text>{{team.allShiNum}}</text>
+                </view>
+                <view>{{team.jingSnum}}</view>
+                <view>{{team.allScore}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='tableList' wx:if="{{competition.leagueType == 1}}">
+      <!-- <view class='list_title'>
+        <text>联赛</text>
+      </view> -->
+      <view class='table_info'>
+        <view class='table_title'>
+          <view wx:for="{{tableTitle}}" wx:key="{{index}}">{{item}}</view>
+        </view>
+        <view class='tableItem' wx:for="{{point}}" wx:key="{{index}}">
+          <view>{{item.stageName}}</view>
+          <view class='line_item' wx:for="{{item.rows1}}" wx:for-item="team" wx:key="this">
+            <view>{{team.no}}</view>
+            <view>{{team.teamName}}</view>
+            <view>{{team.matchnum}}</view>
+            <view>
+              <!-- <text>{{team.win}}/</text>
+              <text>{{team.lose}}/</text>
+              <text>{{team.pointwin}}/</text>
+              <text>{{team.pointlose}}</text> -->
+              <text>{{team.SPFValue}}</text>
+            </view>
+            <view>
+              <text>{{team.allJinNum}}/</text>
+              <text>{{team.allShiNum}}</text>
+            </view>
+            <view>{{team.jingSnum}}</view>
+            <view>{{team.allScore}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='null' wx:if="{{point&&!point.length}}">
+      <image src='/images/no_match@3x.png'></image>
+      <view>积分榜为空，请重新搜索</view>
+    </view>
+  </view>
+  <view class='shooterList' wx:if="{{tabSel == 2}}">
+    <view class='break'></view>
+    <view class='shooter_table'>
+      <view class='shooter_table_title'>
+        <view wx:for="{{shooterTitle}}" wx:key="{{index}}">{{item}}</view>
+      </view>
+      <view class='shooter_table_item' wx:for="{{shooter}}" wx:key="index">
+        <view>{{item.no}}</view>
+        <view>
+          <view>
+            <image src="http://img.haoq360.com{{item.photoUrl}}"></image>
+            <text>{{item.realName}}</text>          
+          </view>
+        </view>
+        <view>
+          <view>
+            <image src="http://img.haoq360.com{{item.teamImg}}"></image>
+            <text>{{item.teamName}}</text>        
+          </view>
+        </view>
+        <view>
+          <view>{{item.jin}}</view>
+        </view>
+      </view>
+    </view>
+    <view class='null' wx:if="{{shooter&&!shooter.length}}">
+      <image src='/images/no_match@3x.png'></image>
+      <view>暂无射手，请重新搜索</view>
+    </view>
+  </view>
+  <view class='teamList' wx:if="{{tabSel == 3}}">
+    <view class='break'></view>
+      <view class='team_list'>
+      <navigator hover-class="none" url="/pages/team_detail/team_detail?id={{item.crteid}}" wx:for="{{teamList}}" wx:key="{{index}}" class='team_item'>
+        <view class='team_logo'>
+          <image src='http://img.haoq360.com{{item.teamIocUrl}}'></image>
+        </view>
+        <view class='team_info'>
+          <view>{{item.teamName}}</view>
+          <view class='team_position'>
+            <view>
+              <image src='{{img.location}}'></image>
+              <text>{{item.provName}}{{item.region}}</text>
+            </view>
+            <view>已报名{{item.number}}人</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view class='null' wx:if="{{teamList&&!teamList.length}}">
+      <image src='/images/no_match@3x.png'></image>
+      <view>暂无球队，请重新搜索</view>
+    </view>
+  </view> 
+</view>
+<view class="to-join" bindtap="toJoin" wx:if="{{state=='报名中'}}">赛事报名</view>
+
+<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{!showSuspension}}">
+  <image mode="scaleToFill" src="../../images/icon_menu.png"></image>
+</view>
+<view class="suspension" wx:if="{{showSuspension}}">
+  <navigator class="item item_match" haver-class="none" open-type="switchTab" url="/pages/index/index" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_saishi.png"></image>
+    赛事
+  </navigator>
+  <navigator class="item item_btn" haver-class="none" open-type="switchTab" url="/pages/team/team" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_team.png"></image>
+    球队
+  </navigator>
+  <navigator class="item item_me" haver-class="none" open-type="switchTab" url="/pages/mine/mine" hover-class="navigator-hover">
+    <image mode="scaleToFill" src="../../images/icon_my.png"></image>
+    我的
+  </navigator>
+  <view class="close" bindtap="toggetshowSuspension">
+    <image mode="scaleToFill" src="../../images/icon_close.png"></image>
+  </view>
+</view>

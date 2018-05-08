@@ -1,0 +1,185 @@
+const $ = getApp().globalData
+import initAreaPicker, { getSelectedAreaData } from '../../template/index';
+Page({
+  data: {
+    img: {
+      logo: '/images/clogo.png',name: '/images/ctname.png', shortname: '/images/csname.png', display: '/images/cdis.png', ctime: '/images/ctime.png', type: '/images/ctype.png', type: '/images/ctype.png', forward: '/images/forward.png'
+    },
+    logo: '',
+    provName: '点击选择',
+    region: '',
+    ctime: '点击选择',
+    ctype: '点击选择',
+    typeList: ['社区队', '社会队', '企业队', '政府机关','校园队'],
+    typeSel: '点击选择',
+    teamName: '',
+    lock:false,
+    showArea: false, // 是否显示地区选择
+    shortName: ''
+  },
+  okArea: function () {
+    this.setData({ showArea: false })
+    this.setData({ 
+      provName: getSelectedAreaData()[0].fullName, 
+      region: getSelectedAreaData()[1].fullName,
+      provCode: getSelectedAreaData()[0].code,
+      regionCode: getSelectedAreaData()[1].code,
+     })
+  },
+  changeItem: function (e) {
+    
+    if (e.currentTarget.dataset.type == 1){
+      this.setData({ showArea: true })
+    }else{
+      this.setData({ ctime: e.detail.value })
+    }
+    // e.currentTarget.dataset.type == 1 ? this.setData({ provName: e.detail.value[0], region: e.detail.value[1]}) : this.setData({ctime: e.detail.value})
+  },
+  cencal () {
+    this.setData({ showArea: false })
+  },
+  typeSel: function (e) {
+    this.setData({typeSel: this.data.typeList[e.detail.value]})
+  },
+  onLoad(option){
+    if (option.edit){
+      this.setData({ edit: option.edit})
+      this.getTeamDetail(option.edit)
+    }
+  },
+  getTeamDetail (id) {
+    wx.request({
+      url: $.api + 'Team/findCreateTeamDetails',
+      data: { crteid: id, userid: $.uid },
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      method: 'POST',
+      success: (res) => {
+        let { code,rows} = res.data
+        if (code == 1012) {
+          this.setData({ 
+            logo: 'http://img.haoq360.com'+rows.teamIocUrl,
+            teamName: rows.teamName,
+            shortName: rows.shortName,
+            provName: rows.provName,
+            region: rows.region,
+            ctime:rows.foundDate,
+            typeSel: rows.teamNature
+          })
+        }
+      },
+    })
+  },
+  onShow: function () {
+    var that = this
+    initAreaPicker({
+      hideDistrict: true, // 是否隐藏区县选择栏，默认显示
+    });
+    try {
+      let avatar = wx.getStorageSync('Cutting')
+      if (avatar) {
+        that.setData({ logo: avatar })
+        wx.removeStorageSync('Cutting')
+      }
+    } catch (e) { }
+  },
+  uploadLogo: function () {
+    var that = this
+    wx.chooseImage({
+      count: 1,
+      success: function(res) {
+        // that.setData({logo: res.tempFilePaths[0]})
+        const src = res.tempFilePaths[0]
+        wx.navigateTo({
+          url: `../upload/upload?src=${src}`
+        })
+      },
+    })
+  },
+  getName: function (e) {
+    this.setData({teamName: e.detail.value})
+  },
+  getShortName: function (e) {
+    this.setData({shortName: e.detail.value})
+  },
+  toCreate: function () {
+    var that = this
+    if(this.data.lock){
+      return
+    }
+    this.setData({ lock:true })
+    if (that.data.logo == '') {
+      wx.showToast({
+        title: '请选择球队Logo',
+        image: '/images/err.png'
+      })
+      that.setData({ lock: false })
+    } else {
+      if (that.data.teamName == '') {
+        wx.showToast({
+          title: '请填写球队名称',
+          image: '/images/err.png'
+        })   
+        that.setData({ lock: false })    
+      } else {
+        if (that.data.shortName == '') {
+          wx.showToast({
+            title: '请填写球队简称',
+            image: '/images/err.png'
+          })
+          that.setData({ lock: false })            
+        } else {
+          if (that.data.region == '') {
+            wx.showToast({
+              title: '请选择所在区域',
+              image: '/images/err.png'
+            })  
+            that.setData({ lock: false })            
+          } else {
+            wx.showLoading({
+              title: '创建中',
+            })
+            var subData = {}
+            subData.userid = $.uid
+            subData.teamName = that.data.teamName
+            subData.shortName = that.data.shortName
+            that.data.typeSel == '点击选择' ? subData.teamNature = '' : subData.teamNature = that.data.typeSel
+            that.data.ctime == '点击选择' ? subData.foundDate = '' : subData.foundDate = that.data.ctime
+            subData.provName = that.data.provName
+            subData.region = that.data.region
+            subData.provCode = that.data.provCode
+            subData.regionCode = that.data.regionCode
+            if (that.data.edit){
+              subData.crteid = that.data.edit
+            }
+            console.log(subData)
+            wx.uploadFile({
+              url: $.api + 'team/saveOrUpdateCreateTeam',
+              filePath: that.data.logo,
+              name: 'img',
+              header: { "Content-Type": "multipart/form-data" },
+              formData: subData,
+              success: function(res) {
+                wx.hideLoading()
+                that.setData({ lock: false })
+                let ress = JSON.parse(res.data)
+                if (ress.code == 1007) {
+                  try {
+                    wx.setStorageSync('tabSel', '2')
+                    wx.switchTab({
+                      url: '/pages/mine/mine',
+                    })
+                  } catch (error) {}
+                } else {
+                  wx.showToast({
+                    title: ress.message,
+                    image: '/images/error.png'
+                  })
+                }
+              }
+            })
+          }
+        }
+      }
+    }
+  }
+})

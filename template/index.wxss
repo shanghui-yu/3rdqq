@@ -1,0 +1,22 @@
+.picker-view {
+  position: absolute;
+  left: 10px;
+  bottom:60px;
+  right: 10px;
+  background: #fff;
+}
+
+.addr-item {
+  line-height: 35px;
+  text-align: center;
+}
+
+.show {
+  text-align: center;
+  margin: 20px;
+  height: 35px;
+}
+
+.choose {
+  margin: 20px 0;
+}

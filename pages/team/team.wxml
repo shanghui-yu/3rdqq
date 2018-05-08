@@ -1,0 +1,71 @@
+<view class='container' catchtouchmove='{{catchStatus}}'>
+  <view class='search'>
+    <view class='inner_search'>
+      <view class='dispicker' bindtap='changeArea'>
+        <image src="{{img.position}}"></image>
+        <text>{{positionDis}}</text>
+        <image src='{{img.slidedown}}' style='{{changeDis == 1?"transform:rotateZ(180deg)":"rotateZ(0deg)"}}'></image>
+      </view>
+      <view class='input_search' wx:if="{{changeDis == 0}}">
+        <image src='{{img.search}}'></image>
+        <input bindinput='searchKey' value='{{searchKey}}' placeholder='输入要搜索的球队名称'></input>
+        <image src='{{img.close}}' bindtap='closeSearch'></image>
+      </view>
+    </view>
+  </view>
+  <view class='break'></view>
+  <view class='competitionList' wx:if="{{changeDis == 0}}">
+    <view class='competitionItem' wx:for="{{team}}" wx:key="*this">
+      <view class='item' bindtap='toDetail' data-id='{{item.crteid}}'>
+        <view class='logo_wrap'>
+          <image src='{{"http://img.haoq360.com" + item.teamIocUrl}}'></image>
+        </view>
+        <view class='item_info'>
+          <view class='item_title'>{{item.teamName}}</view>
+          <view class='item_detail'>
+            <view class='item_position'>
+              <image src='{{img.location}}'></image>
+              <text>{{item.provName}} {{item.region}}</text>
+            </view>
+            <view class='item_num'>
+              <image src='{{img.player}}'></image>
+              <text>{{item.number}}</text>
+            </view>
+          </view>
+        </view>    
+      </view>
+      <view class='line'></view>
+    </view>
+    <view class='null' wx:if="{{isNull == 1&&!team.length}}">
+      <image src='{{img.isNull}}'></image>
+      <view>无此球队，请重新搜索</view>
+    </view>
+    <view class='null' wx:if="{{noTeam == 1&&!team.length}}">
+      <image src='{{img.isNull}}'></image>
+      <view>该地区暂无球队</view>
+    </view>    
+  </view>
+  <view class='team_wrap'></view>
+   <view class='create_competition' wx:if="{{changeDis == 0}}" bindtap='toCreate'>
+    <view>+</view>
+    <text>创建球队</text>
+  </view> 
+</view>
+<view class='area' wx:if="{{changeDis == 1}}">
+  <view class='list_title'>
+    <view>{{positionDis}}</view>
+    <view>请选择</view>
+  </view>
+  <view class='list_wrap'>
+    <view class='province'>
+      <view wx:for="{{province}}" wx:key="{{index}}">
+        <text style='border-bottom:{{selPro == index ? "1px solid #2B70F0" : ""}}' bindtap='selProvince' data-index='{{index}}' data-code='{{item.code}}'>{{item.name}}</text>
+      </view>
+    </view>
+    <view class='city'>
+      <view wx:for="{{cityList}}" wx:key="{{index}}">
+        <view bindtap='changeList' data-id='{{item.id}}' data-name='{{item.name}}' data-code='{{item.provincecode}}'>{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,111 @@
+<scroll-view scroll-y="{{showArea}}" style="height:{{wh}}" class="container" >
+  <view class='banner'>
+    <image src='{{img.banner}}' mode='widthFix'></image>
+  </view>
+  <view class='form_line'>
+    <view>赛事全称</view>
+    <input placeholder='请输入赛事全称' bindinput='getFullName'  placeholder-style='color:#b0b0b0;text-align:right' maxlength='8'></input>
+  </view>
+  <view class='form_line'>
+    <view>赛事简称</view>
+    <input placeholder='请输入赛事简称' bindinput='getName' placeholder-style='color:#b0b0b0;text-align:right' maxlength='8'></input>
+  </view>
+  <view class='form_position'>
+    <view>所在区域</view>
+    <view bindtap='changeLocation'>
+      <view>
+        <view class='{{provinceName == "请点击选择所在位置"?"location_unget":"location_get"}}'>{{provinceName}} {{cityName}}</view>
+        <image src='{{img.location}}'></image>    
+      </view>
+    </view>
+  </view>
+  <view class='form_logo'>
+    <view>赛事logo</view>
+    <view>
+      <view class='show_img'>
+        <image wx:if="{{competition.logo != ''}}" bindtap='uploadImg' src='{{competition.logo}}'></image>
+        <view wx:if="{{competition.logo == ''}}">添加赛事logo</view>    
+      </view>
+      <view class='img_btn' bindtap='uploadImg' wx:if="{{competition.logo == ''}}">
+        <view>+</view>
+      </view>
+    </view>
+  </view>
+  <view class='form_date'>
+    <view>报名起止时间</view>
+    <view>
+      <picker mode="date" bindchange='selectDate' data-line='1' end="{{competition.endSign}}">
+        <view class='{{competition.startSign == "起始时间"?"defalt":"signter_star"}}' style='color: {{competition.startSign != "起始时间" ? "#333":""}}'>{{competition.startSign}}</view>
+      </picker>
+      <view class='{{competition.startSign == "起始时间"?"":"defal"}}'> - </view>
+      <picker mode="date" bindchange='selectDate' data-line='2' start="{{competition.startSign}}">
+        <view class='signter_end' style='color: {{competition.endSign != "结束时间" ? "#333":""}}'>{{competition.endSign}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class='form_date'>
+    <view>比赛起止时间</view>
+    <view>
+      <picker mode="date" bindchange='selectDate' data-line='3' end="{{competition.endMatch}}">
+        <view class='{{competition.startMatch == "起始时间"?"defalt":"signter_star"}}' style='color: {{competition.startMatch != "起始时间" ? "#333":""}}'>{{competition.startMatch}}</view>
+      </picker>
+      <view class='{{competition.startMatch == "起始时间"?"":"defal"}}'> - </view>
+      <picker mode="date" bindchange='selectDate' data-line='4' start="{{competition.startMatch}}">
+        <view class='signter_end' style='color: {{competition.endMatch != "结束时间" ? "#333":""}}'>{{competition.endMatch}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class='select_line'>
+    <view>赛事类型</view>
+    <picker range='{{competitionType}}' bindchange='getType' data-index='{{index}}'>
+      <view>
+        <text style="color: {{selType=='请选择比赛类型' ? '#b0b0b0':''}}">{{selType}}</text>
+        <image src='{{img.forward}}'></image>    
+      </view>
+    </picker>
+  </view>
+  <view class='select_line'>
+    <view>赛制</view>
+      <picker range='{{numType}}' bindchange='getnumType'>
+        <view>
+          <text style='color: {{selNum == "请选择赛制" ? "#b0b0b0":""}}'>{{selNum}}</text>
+          <image src='{{img.forward}}'></image>          
+        </view>
+      </picker>
+  </view>
+  <view class='radio_line'>
+    <view>有直播</view>  
+    <view>
+      <switch color='#FA6D6C' bindchange='getIs' data-order='0'></switch>
+    </view>
+  </view>
+  <view class='radio_line'>
+    <view>需要实名认证</view>  
+    <view>
+      <switch color='#FA6D6C' bindchange='getIs' data-order='1'></switch>
+    </view>
+  </view>
+  <view class='break'></view>
+  <view class='btn_sub' bindtap='create'>创建赛事</view>
+</scroll-view>
+<view class='wrap' wx:if="{{isSubmit == 1}}">
+  <view class='card'>
+    <view class='card_title'>
+      <image src='{{img.success}}'></image>
+      <view>建赛成功</view>
+    </view>
+    <view class='card_info'>
+      <view class='card_line' wx:for="{{slogan}}" wx:key="{{index}}">{{item}}</view>
+      <view class='app_info'>Hao球服务平台</view>
+      <view class='app_info'>（WWW.haoq360.com）</view>
+    </view>
+    <view class='btn_app' bindtap='hideWrap'>确定</view>
+  </view>
+</view>
+<view wx:if="{{!showArea}}" class="area-Picker">
+  <view class="mark" bindtap="cencal"></view>
+  <view class="picke-header">选择城市</view>
+  <import src="../../template/index.wxml" />
+  <template is="areaPicker" data="{{...areaPicker}}" />
+  <view class="picker-footer" bindtap="okArea">确认</view>
+</view>
