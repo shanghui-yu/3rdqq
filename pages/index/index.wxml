@@ -1,4 +1,4 @@
-<view class='container' catchtouchmove='{{catchStatus}}'>
+<view class='container overhide' catchtouchmove='{{catchStatus}}'>
   <view class='search'>
     <view class='inner_search'>
       <view class='dispicker' bindtap='getDisList'>

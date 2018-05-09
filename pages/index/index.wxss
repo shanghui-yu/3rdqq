@@ -4,6 +4,9 @@ page {
 .conteiner {
   height: 100%;
 }
+.overhide{
+  overflow: hidden;
+}
 .search {
   height: 100rpx;
   display: flex;

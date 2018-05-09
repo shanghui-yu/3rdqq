@@ -285,9 +285,9 @@ Page({
           })
           let dayList = this.data.dayList
           if (refresh){
-            dayList = [...res.data.rows, dayList]
+            dayList = [...res.data.rows, ...dayList]
           }else{
-            dayList = [...dayList, ...res.data.rows]
+            dayList =  [...dayList, ...res.data.rows]
           }
           this.setData({ dayList: dayList,loading:false })
         }
@@ -298,9 +298,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    console.log(this.data.dayList);
     if (this.data.tabSel=='0'){
       let index = this.data.dayList.length-1
-      this.getMorePage(3, this.data.dayList[index].date,'refresh')
+      this.getMorePage(1, this.data.dayList[index].date,'refresh')
     }else{
       wx.stopPullDownRefresh()
     }
@@ -320,9 +321,9 @@ Page({
       return
     }
     this.loading = true
-    console.log(this.data.dayList.length);
+    console.log(this.data.dayList);
     if (this.data.tabSel == '0' && this.data.dayList.length>10) {
-      this.getMorePage(1, this.data.dayList[0].date)
+      this.getMorePage(3, this.data.dayList[0].date)
     }
   },
 

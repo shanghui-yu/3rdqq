@@ -45,12 +45,10 @@
               </view>
               <view class='item_vs' wx:if="{{com.endType == '2'}}">VS</view>
               <view class='item_time' wx:if="{{com.endType == 1}}">{{com.gameTime}}</view>
-              <!-- <view wx:if="{{com.endType == '1'}}" class='live'>即将直播</view>
-              <view wx:if="{{com.endType == '2'}}" class='live'>正在直播</view>
-              <view wx:if="{{com.endType == '3'}}" class='live'>直播回放</view> -->
-              <view wx:if="{{com.videoType=='2' && com.endType == '3'}}" style='background:{{com.endType == "1" ? "#FA6D6C":""}}'>即将直播</view>
-              <view wx:if="{{com.videoType=='2' &&com.endType == '2'}}" style='background:{{com.endType == "2" ? "#62B623":""}}'>正在直播</view>
-              <view wx:if="{{com.videoType=='2' &&com.endType == '1'}}" style='background:{{com.endType == "3" ? "#7BBCFC":""}}'>直播回放</view>
+              
+              <view wx:if="{{com.videoType!='0' && com.endType == '3'}}" style='background:#7BBCFC'>直播回放</view>
+              <view wx:if="{{com.videoType!='0' &&com.endType == '2'}}" style='background:#62B623'>正在直播</view>
+              <view wx:if="{{com.videoType!='0' &&com.endType == '1'}}" style='background:#FA6D6C'>即将直播</view>
 
               <view wx:if="{{com.videoType=='0' &&com.endType == '3'}}" class="no-video" style='color:#96c6ee'>已结束</view>
               <view wx:if="{{com.videoType=='0' &&com.endType == '2'}}" class="no-video" style='color:#93b86b'>比赛中</view>

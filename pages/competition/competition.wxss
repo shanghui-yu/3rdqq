@@ -138,6 +138,12 @@ page {
   text-align: left;
   color: #333;
   line-height: 40rpx;
+  max-height: 80rpx;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .host Image, .guest image{
   width: 88rpx;

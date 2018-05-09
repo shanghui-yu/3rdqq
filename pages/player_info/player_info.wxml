@@ -97,11 +97,26 @@
         <view>万事俱备 只差球队</view>
       </view>
   <view class='state' wx:if="{{urlState == 1||isManager==1||isme}}">
-    <view bindtap='clear' data-type="0" wx:if='{{intro == 1&& !isme||isManager==1 && !isme}}'>移出球队</view>
+    <form bindsubmit="clear" report-submit wx:if='{{intro == 1&& !isme||isManager==1 && !isme}}'>
+        <button formType="submit" data-type="0">移出球队</button>
+    </form>
+    <form bindsubmit="toMover" report-submit wx:if='{{intro == 1&& !isme||isManager==1&& !isme }}'>
+        <button formType="submit">移交领队</button>
+    </form>
+    <form bindsubmit="clear" report-submit wx:if='{{intro == 1 && isme}}'>
+        <button formType="submit" data-type="1">退出球队</button>
+    </form>
+    <form bindsubmit="check" report-submit wx:if='{{intro == 2}}'>
+        <button formType="submit" data-yn='1'>同意</button>
+    </form>
+    <form bindsubmit="check" report-submit wx:if='{{intro == 2}}'>
+        <button formType="submit" data-yn='0'>驳回</button>
+    </form>
+    <!-- <view bindtap='clear' data-type="0" wx:if='{{intro == 1&& !isme||isManager==1 && !isme}}'>移出球队</view>
     <view bindtap="toMover" wx:if='{{intro == 1&& !isme||isManager==1&& !isme }}'>移交领队</view>
     <view bindtap="clear" data-type="1" wx:if='{{intro == 1 && isme}}'>退出球队</view>
     <view bindtap='check' data-yn='1' wx:if='{{intro == 2}}'>同意</view>
-    <view bindtap='check' data-yn='0' wx:if='{{intro == 2}}'>驳回</view>
+    <view bindtap='check' data-yn='0' wx:if='{{intro == 2}}'>驳回</view> -->
   </view>
 </view>
 
