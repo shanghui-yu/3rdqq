@@ -1,4 +1,9 @@
-<view class='container overhide' catchtouchmove='{{catchStatus}}'>
+
+<scroll-view scroll-y="{{catchStatus}}" 
+  bindscrolltoupper="Refresh"
+  bindscrolltolower="ReachBottom" 
+  class='container'
+  upper-threshold="50" style="height:{{wh}}px" >
   <view class='search'>
     <view class='inner_search'>
       <view class='dispicker' bindtap='getDisList'>
@@ -56,7 +61,8 @@
     <view>+</view>
     <text>创建赛事</text>
   </view>
-</view>
+  </scroll-view>
+
 <view class='area' wx:if="{{changeArea == 1}}">
   <view class='list_title'>
     <view>{{positionDis}}</view>

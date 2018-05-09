@@ -25,13 +25,14 @@ Page({
       { title: '比赛中', color: '#62B623' },
     ],
     address:{},
-    catchStatus:false
+    catchStatus:true
   },
   onLoad: function () {
     var that = this
     wx.showLoading({
       title: '加载中',
     })
+    this.setData({wh:wx.getSystemInfoSync().windowHeight})
     // 获取经纬度
     wx.getLocation({
       success: function(res) {
@@ -157,7 +158,7 @@ Page({
   // 选择地址
   getDisList: function () {
     this.data.changeArea == 1 ? this.setData({changeArea: 0}) : this.setData({changeArea: 1}) 
-    this.setData({ catchStatus: true })
+    this.setData({ catchStatus: !this.data.catchStatus })
   },
   // 选择省份，返回大区列表
   selProvince: function (e) {
@@ -196,6 +197,7 @@ Page({
     console.log(cityCode)
     console.log(provinceCode)
     console.log(e.currentTarget.dataset.name,123)
+    that.setData({ catchStatus: true })
     wx.request({
       url: $.api + 'league/findLeague',
       data: { provinceCode, cityCode, page },
@@ -203,7 +205,6 @@ Page({
       method: "POST",
       success: function (res) {
         if (res.data.code == 1021) {
-          that.setData({ catchStatus: false })
           if (res.data.rows.length != 0) {
             page++
             that.setData({ competition: res.data.rows, page, changeArea: 0, selProvince: provinceCode, selCity: cityCode, city_name:res.data.city_name, noMatch: 0 })
@@ -237,9 +238,11 @@ Page({
   onShareAppMessage: function () {
     
   },
-  onPullDownRefresh: function () {
-    // wx.stopPullDownRefresh()
-    this.setData({ page:1 })
+  Refresh: function () {
+    if (this.data.loading){
+      return 
+    }
+    this.setData({ page:1,loading: true })
     switch (this.data.status) {
       case 0:
         this.getMoreList('refesh')
@@ -292,7 +295,7 @@ Page({
           competition = [...competition, ...result.data.rows]
           if (refesh =='refesh') {
             this.setData({ competition: result.data.rows })
-            wx.stopPullDownRefresh()
+            // wx.stopPullDownRefresh()
           }else{
             this.setData({ competition })
           }
@@ -329,7 +332,7 @@ Page({
           competition = [...competition, ...result.data.rows]
           if (refesh == 'refesh') {
             this.setData({ competition: result.data.rows })
-            wx.stopPullDownRefresh()
+            // wx.stopPullDownRefresh()
           } else {
             this.setData({ competition })
           }
@@ -366,7 +369,7 @@ Page({
           competition = [...competition, ...res.data.rows]
           if (refesh == 'refesh') {
             this.setData({ competition: res.data.rows })
-            wx.stopPullDownRefresh()
+            // wx.stopPullDownRefresh()
           } else {
             this.setData({ competition })
           }
@@ -388,7 +391,7 @@ Page({
       }
     })
   },
-  onReachBottom () {
+  ReachBottom () {
     if (this.data.loading){
       return 
     }

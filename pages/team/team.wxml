@@ -1,4 +1,8 @@
-<view class='container' catchtouchmove='{{catchStatus}}'>
+<scroll-view scroll-y="{{catchStatus}}" 
+  bindscrolltoupper="Refresh"
+  bindscrolltolower="ReachBottom" 
+  class='container'
+  upper-threshold="50" style="height:{{wh}}px" >
   <view class='search'>
     <view class='inner_search'>
       <view class='dispicker' bindtap='changeArea'>
@@ -50,7 +54,7 @@
     <view>+</view>
     <text>创建球队</text>
   </view> 
-</view>
+</scroll-view>
 <view class='area' wx:if="{{changeDis == 1}}">
   <view class='list_title'>
     <view>{{positionDis}}</view>

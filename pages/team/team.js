@@ -20,7 +20,7 @@ Page({
     status: 0, //状态 0代表定位，1代表地区，2代表搜索
     searchKey: '', //搜索内容
     address: {},
-    catchStatus: false
+    catchStatus:true
   },
   onLoad: function () {
     // 添加搜索开关
@@ -28,6 +28,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+    this.setData({wh:wx.getSystemInfoSync().windowHeight})
     // 获取经纬度
     wx.getLocation({
       success: function (res) {
@@ -150,7 +151,7 @@ Page({
   // 选择地区
   changeArea: function (e) {
     this.data.changeDis == 1 ? this.setData({changeDis: 0}) : this.setData({changeDis: 1})
-    this.setData({ catchStatus: true })
+    this.setData({ catchStatus: !this.data.catchStatus })
   },
   // 选择地区
   changeList: function (e) {
@@ -165,7 +166,7 @@ Page({
       provinceCode,
       cityCode
     }
-    that.setData({ status: 1, address, loading: false, page: 2 })
+    that.setData({ status: 1, address, loading: false, page: 2 ,catchStatus:true})
     wx.request({
       url: $.api + 'Team/findTeam',
       data: { provinceCode, cityCode, page: 1},
@@ -173,7 +174,6 @@ Page({
       method: 'POST',
       success: function(res) {
         if (res.data.code == 1000) {
-          that.setData({ catchStatus: false })
           if (e.currentTarget.dataset.name !== '全部') {
             that.setData({ positionDis: e.currentTarget.dataset.name })
           } else {
@@ -200,9 +200,11 @@ Page({
     this.setData({ searchKey: ''})
     this.onLoad()
   },
-  onPullDownRefresh: function () {
-    // wx.stopPullDownRefresh()
-    this.setData({ page: 1 })
+  Refresh: function () {
+    if (this.data.loading) {
+      return
+    }
+    this.setData({ loading: true,page: 1 })
     switch (this.data.status) {
       case 0:
         this.getMoreList('refesh')
@@ -326,7 +328,7 @@ Page({
       }
     })      
   },
-  onReachBottom () {
+  ReachBottom () {
     if (this.data.loading) {
       return
     }

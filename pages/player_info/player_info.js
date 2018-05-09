@@ -86,6 +86,7 @@ Page({
   },
   check: function (e) {
     let that = this
+    let formid = e.detail.formId
     var showTitle = ''
     e.currentTarget.dataset.yn == 0 ? showTitle = '拒绝' + that.data.userInfo.nickname + '入队' : showTitle = '将' + that.data.userInfo.nickname + '加入球队'
     wx.showModal({
@@ -98,7 +99,8 @@ Page({
               userid: that.data.uid, 
               crteid: that.data.tid, 
               applyid: $.uid,
-              opinion: e.currentTarget.dataset.yn 
+              opinion: e.currentTarget.dataset.yn,
+              formid
             },
             header: { "Content-Type": "application/x-www-form-urlencoded" },
             method: 'POST',
@@ -122,13 +124,14 @@ Page({
   clear: function (e) {
     let type = e.currentTarget.dataset.type
     let that =this
+    let formid = e.detail.formId
     wx.showModal({
       title: '将' + that.data.userInfo.nickname + '移出球队',
       success: function (res) {
         if (res.confirm) {
           wx.request({
             url: $.api + 'team/sighOut',
-            data: { userid: that.data.uid, crteid: that.data.tid },
+            data: { userid: that.data.uid, crteid: that.data.tid,formid },
             header: { "Content-Type": "application/x-www-form-urlencoded" },
             method: 'POST',
             success: function (res) {
@@ -154,14 +157,15 @@ Page({
       }
     })
   },
-  toMover(){
+  toMover(e){
+    let formid = e.detail.formId
     wx.showModal({
       title: '将领队移交给' + this.data.userInfo.nickname ,
       success:  (res) =>{
         if (res.confirm) {
           wx.request({
             url: $.api + 'team/addIdentity',
-            data: { userid: this.data.uid, crteid: this.data.tid, myuserid: $.uid },
+            data: { userid: this.data.uid, crteid: this.data.tid, myuserid: $.uid,formid },
             header: { "Content-Type": "application/x-www-form-urlencoded" },
             method: 'POST',
             success: function (res) {
