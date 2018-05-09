@@ -323,9 +323,11 @@ Page({
               wx.showToast({
                 title: '修改成功',
               }),
+              setTimeout(() => {
                 wx.switchTab({
                   url: '/pages/mine/mine',
                 })
+              }, 1000);
             }
           })
         } else {
@@ -353,9 +355,11 @@ Page({
                 wx.showToast({
                   title: '修改成功',
                 })
-                wx.switchTab({
-                  url: '/pages/mine/mine',
-                })
+                setTimeout(() => {
+                  wx.switchTab({
+                    url: '/pages/mine/mine',
+                  })
+                }, 1000);
               }else{
                 wx.showToast({
                   title: message,

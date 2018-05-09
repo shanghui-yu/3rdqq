@@ -125,6 +125,7 @@ Page({
           that.data.competition.startMatch == '起始时间' ? subData.eventUpTime = '' : subData.eventUpTime = that.data.competition.startMatch
           that.data.competition.endMatch == '结束时间' ? subData.eventEndTime = '' : subData.eventEndTime = that.data.competition.endMatch
           subData.userid = $.uid
+          subData.fewPeopleSystem = that.data.selNum
           if (that.data.selType == '请选择赛事类型') {
             subData.species = ''
           } else {

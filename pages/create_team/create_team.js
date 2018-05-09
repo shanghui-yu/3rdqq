@@ -1,5 +1,6 @@
 const $ = getApp().globalData
 import initAreaPicker, { getSelectedAreaData } from '../../template/index';
+import formatTime from "../../utils/util.js";
 Page({
   data: {
     img: {
@@ -56,15 +57,26 @@ Page({
       success: (res) => {
         let { code,rows} = res.data
         if (code == 1012) {
+          let time = new Date(rows.foundDate.time)
+          console.log(formatTime.formatTime(time), time);
+          time = formatTime.formatTime(time).replace(/\//g, '-').substring(0, 10)
           this.setData({ 
             logo: 'http://img.haoq360.com'+rows.teamIocUrl,
             teamName: rows.teamName,
             shortName: rows.shortName,
             provName: rows.provName,
+            provCode: rows.provCode,
+            regionCode: rows.regionCode,
             region: rows.region,
-            ctime:rows.foundDate,
+            ctime: time,
+            imgs: rows.teamIocUrl,
             typeSel: rows.teamNature
           })
+          if (option.edit) {
+            wx.setNavigationBarTitle({
+              title: rows.teamName
+            })
+          }
         }
       },
     })
@@ -78,9 +90,32 @@ Page({
       let avatar = wx.getStorageSync('Cutting')
       if (avatar) {
         that.setData({ logo: avatar })
+        this.getImg(avatar)
         wx.removeStorageSync('Cutting')
       }
     } catch (e) { }
+  },
+  getImg (img){
+    wx.uploadFile({
+      url: $.api + 'user/uploadimg',
+      filePath: img,
+      name: 'img',
+      header: { "Content-Type": "multipart/form-data" },
+      success:  (res)=> {
+        this.setData({ imgs: res.data})
+        console.log(this.data.imgs)
+      }
+    })
+
+    // wx.request({
+    //   url: $.api + 'user/uploadimg',
+    //   method: "POST",
+    //   header: { "Content-Type": "application/x-www-form-urlencoded" },
+    //   data: {img},
+    //   success: (res) => {
+    //     console.log(res)
+    //   }
+    // })
   },
   uploadLogo: function () {
     var that = this
@@ -102,10 +137,10 @@ Page({
     this.setData({shortName: e.detail.value})
   },
   toCreate: function () {
-    var that = this
     if(this.data.lock){
       return
     }
+    var that = this
     this.setData({ lock:true })
     if (that.data.logo == '') {
       wx.showToast({
@@ -135,9 +170,15 @@ Page({
             })  
             that.setData({ lock: false })            
           } else {
-            wx.showLoading({
-              title: '创建中',
-            })
+            if (that.data.edit){
+              wx.showLoading({
+                title: '保存中',
+              })
+            }else{
+              wx.showLoading({
+                title: '创建中',
+              })
+            }
             var subData = {}
             subData.userid = $.uid
             subData.teamName = that.data.teamName
@@ -148,26 +189,27 @@ Page({
             subData.region = that.data.region
             subData.provCode = that.data.provCode
             subData.regionCode = that.data.regionCode
+            subData.img = that.data.imgs
             if (that.data.edit){
               subData.crteid = that.data.edit
             }
-            console.log(subData)
-            wx.uploadFile({
+            wx.request({
               url: $.api + 'team/saveOrUpdateCreateTeam',
-              filePath: that.data.logo,
-              name: 'img',
-              header: { "Content-Type": "multipart/form-data" },
-              formData: subData,
+              method: "POST",
+              header: { "Content-Type": "application/x-www-form-urlencoded" },
+              data: subData,
               success: function(res) {
                 wx.hideLoading()
                 that.setData({ lock: false })
-                let ress = JSON.parse(res.data)
+                let ress = res.data
                 if (ress.code == 1007) {
                   try {
                     wx.setStorageSync('tabSel', '2')
-                    wx.switchTab({
-                      url: '/pages/mine/mine',
-                    })
+                    setTimeout(() => {
+                      wx.switchTab({
+                        url: '/pages/mine/mine',
+                      })
+                    }, 1000);
                   } catch (error) {}
                 } else {
                   wx.showToast({

@@ -55,6 +55,10 @@
           </view>
         </view>
       </view>
+      <view class='isNull' wx:if="{{player&&!player.length}}">
+        <image src='/images/no_match@3x.png'></image>
+        <view>暂无数据</view>
+      </view>
     </view>
     <view class='cardItem' wx:if="{{cardSel == 1}}">
       <view class='competition_list'>
@@ -115,6 +119,10 @@
           </view>
         </view>
       </view>
+    </view>
+    <view class='isNull' wx:if="{{com&&!com.length}}">
+      <image src='/images/no_match@3x.png'></image>
+      <view>暂无数据</view>
     </view>
   </view>
    <!-- <view class='compe_list' wx:if="{{tabSel == 0}}">
@@ -232,6 +240,10 @@
         </view>
       </view>
     </view>
+    <view class='isNull' wx:if="{{shooter&&!shooter.length}}">
+      <image src='/images/no_match@3x.png'></image>
+      <view>暂无数据</view>
+    </view>
   </view> 
   <view class='com_list' wx:if="{{tabSel == 2}}">
   <view class='break'></view>
@@ -262,6 +274,10 @@
           </view>
         </view>
       </view>
+    </view>
+    <view class='isNull' wx:if="{{year&&!year.length}}">
+      <image src='/images/no_match@3x.png'></image>
+      <view>暂无数据</view>
     </view>
   </view>
   <!-- <view class='teamList' wx:if="{{tabSel == 3}}">
@@ -301,9 +317,9 @@
           </view>
         </view>
       </view>
-      <view class='isNull' wx:if="{{noApply == 1}}">
+      <view class='isNull' wx:if="{{applyPlayer&&!applyPlayer.length}}">
         <image src='/images/no_match@3x.png'></image>
-        <view>无人申请，快去招募队友吧</view>
+        <view>暂无数据</view>
       </view>
   </view>
 </view>
@@ -325,7 +341,7 @@
   </view>
 </view>
 
-<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{!showSuspension}}">
+<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{share&&!showSuspension }}">
   <image mode="scaleToFill" src="../../images/icon_menu.png"></image>
 </view>
 <view class="suspension" wx:if="{{showSuspension}}">

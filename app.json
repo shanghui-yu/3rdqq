@@ -13,6 +13,7 @@
     "pages/authentication/authentication",
     "pages/player_info/player_info",
     "pages/login/login",
+    "pages/team_detail_cansai/team_detail_cansai",
     "pages/team_son/team_son",
     "pages/areaList/areaList"
   ],

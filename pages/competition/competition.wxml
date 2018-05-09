@@ -66,7 +66,7 @@
     </view>
     <view class='null' wx:if="{{dayList&&!dayList.length}}">
       <image src='/images/no_match@3x.png'></image>
-      <view>{{message}}</view>
+      <view>暂无数据</view>
     </view>
   </view>
   <view class='pointList' wx:if="{{tabSel == 1}}">
@@ -145,7 +145,7 @@
     </view>
     <view class='null' wx:if="{{point&&!point.length}}">
       <image src='/images/no_match@3x.png'></image>
-      <view>积分榜为空，请重新搜索</view>
+      <view>暂无数据</view>
     </view>
   </view>
   <view class='shooterList' wx:if="{{tabSel == 2}}">
@@ -175,13 +175,13 @@
     </view>
     <view class='null' wx:if="{{shooter&&!shooter.length}}">
       <image src='/images/no_match@3x.png'></image>
-      <view>暂无射手，请重新搜索</view>
+      <view>暂无数据</view>
     </view>
   </view>
   <view class='teamList' wx:if="{{tabSel == 3}}">
     <view class='break'></view>
       <view class='team_list'>
-      <navigator hover-class="none" url="/pages/team_detail/team_detail?id={{item.crteid}}" wx:for="{{teamList}}" wx:key="{{index}}" class='team_item'>
+      <navigator hover-class="none" url="/pages/team_detail_cansai/team_detail_cansai?leagueid={{comId}}&toteamid={{item.crteid}}" wx:for="{{teamList}}" wx:key="{{index}}" class='team_item'>
         <view class='team_logo'>
           <image src='http://img.haoq360.com{{item.teamIocUrl}}'></image>
         </view>
@@ -199,13 +199,13 @@
     </view>
     <view class='null' wx:if="{{teamList&&!teamList.length}}">
       <image src='/images/no_match@3x.png'></image>
-      <view>暂无球队，请重新搜索</view>
+      <view>暂无数据</view>
     </view>
   </view> 
 </view>
 <view class="to-join" bindtap="toJoin" wx:if="{{state=='报名中'}}">赛事报名</view>
 
-<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{!showSuspension}}">
+<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{share && !showSuspension}}">
   <image mode="scaleToFill" src="../../images/icon_menu.png"></image>
 </view>
 <view class="suspension" wx:if="{{showSuspension}}">

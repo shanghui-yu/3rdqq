@@ -48,6 +48,7 @@ page {
 .competitionList {
   padding: 0 20rpx;
   background: #fff;
+  min-height: calc(100vh - 250px);
 }
 
 .item {

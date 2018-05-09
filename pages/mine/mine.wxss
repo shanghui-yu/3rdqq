@@ -185,7 +185,7 @@ page {
   width: 259rpx;
   height: 80rpx;
   line-height: 80rpx;
-  border: 1px solid #858585;
+  border: 1px solid #2093FD;
   font-size: 28rpx;
   color: #858585;
   text-align: center;

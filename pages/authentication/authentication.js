@@ -230,10 +230,12 @@ Page({
                 })
               } else {
                 wx.showToast({ title: '提交成功' })
+                setTimeout(() => {
+                  wx.switchTab({
+                    url: '/pages/mine/mine',
+                  })
+                }, 1000);
               }
-              wx.switchTab({
-                url: '/pages/mine/mine',
-              })
             },
           })
         } else {

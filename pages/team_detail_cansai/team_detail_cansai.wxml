@@ -1,0 +1,49 @@
+<view class="container padd">
+    <view class="top">
+      <image src="http://img.haoq360.com{{detail.teamIoc}}" class="team-logo"></image>
+      <text class="team-name">{{detail.teamName}}</text>
+    </view>
+    <view class="wraper">
+      <view class="item" wx:if="{{detail.rows1.length}}">
+          <view class="title">工作人员</view>
+          <view class="list" wx:for="{{detail.rows1}}" wx:key="index">
+            <image  class="avatar" src="http://img.haoq360.com{{item.photoUrl}}"></image>
+            <view class="content">
+              <view class="info">
+                <text class="name">{{item.nickName}}</text>
+                <text class="team_people">{{item.identity}}</text>
+                <view class="authentication" wx:if="{{item.isPass=='1'}}">
+                  <image src="../../images/authentication@3x.png"></image>已认证</view>
+              </view>
+              <view class="footer">{{item.teamLocation1?item.teamLocation1:''}} {{item.teamLocation2?item.teamLocation2:''}} </view>
+            </view>
+          </view>
+      </view>
+      <view class="item" wx:if="{{detail.rows.length}}">
+        <view class="title">参赛人员</view>
+        <view class="list" wx:for="{{detail.rows}}" wx:key="index">
+          <image class="avatar" src="http://img.haoq360.com{{item.photoUrl}}"></image>
+          <view class="content">
+            <view class="info">
+              <text class="name">{{item.nickName}}</text>
+              <text class="team_people">{{item.identity}}</text>
+              <view class="authentication" wx:if="{{item.isPass=='1'}}">
+                <image src="../../images/authentication@3x.png"></image>已认证</view>
+            </view>
+            <view class="footer">{{item.teamLocation1?item.teamLocation1:''}} {{item.teamLocation2?item.teamLocation2:''}} </view>
+          </view>
+          <view class="number">{{item.jerseyNo}}</view>
+        </view>
+      </view>
+    </view>
+</view>
+<view class="fix_footer" wx:if="{{detai.cretid}}">
+  <image class="logo" src="http://img.haoq360.com{{detail.teamIoc}}"></image>
+  <view class="text">{{detail.teamName}}</view>
+  <navigator 
+    hover-class="none"
+    url="/pages/team_detail/team_detail?id={{detai.cretid}}" 
+    class="look">查看主页
+    <image src="../../images/forward.png"></image>
+  </navigator>
+</view>

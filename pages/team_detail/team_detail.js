@@ -31,8 +31,10 @@ Page({
     this.setData({ showSuspension: !this.data.showSuspension })
   },
   onLoad: function (e) {
-    var that = this
-    that.setData({ teamId: e.id })
+    if (e.share){
+      this.setData({ share: e.share })
+    }
+    this.setData({ teamId: e.id })
     this.getTeamPeople()
     // 获取球队详情
     this.getTeamDetail()
@@ -50,6 +52,8 @@ Page({
         if (res.data.code == 1021) {
           this.setData({ player: res.data.rows })
           wx.hideLoading()
+        }else{
+          this.setData({ player: [] })
         }
       },
     })
@@ -114,6 +118,8 @@ Page({
           console.log(res)
           if (res.data.code == 1039) {
             that.setData({ shooter: res.data.rows })
+          }else{
+            that.setData({ shooter: [] })
           }
         },
       })
@@ -134,6 +140,8 @@ Page({
               }
             })
             that.setData({ year: res.data.rows })
+          }else{
+            that.setData({ year:[] })
           }
         },
       })
@@ -182,6 +190,8 @@ Page({
             })
             wx.hideLoading()
             that.setData({ com: res.data.rows, cardSel: 1 })
+          }else{
+            that.setData({ com:[] })
           }
         },
       })
@@ -190,7 +200,9 @@ Page({
   onShareAppMessage: function () {
     var that = this
     return {
-      path: '/pages/competition/competition?id=' + e.id
+      path: '/pages/team_detail/team_detail?id=' + that.data.teamId + "&share=1",
+      success: function (res) {
+      },
     }
   },
   // 看看球员详情
@@ -204,7 +216,7 @@ Page({
       state = 0
     }
     wx.navigateTo({
-      url: '/pages/player_info/player_info?uid=' + e.currentTarget.dataset.id + '&state=' + state + '&intro=' + e.currentTarget.dataset.type + '&tid=' + that.data.teamId + '&isManager=' + e.currentTarget.dataset.ismanager,
+      url: '/pages/player_info/player_info?uid=' + e.currentTarget.dataset.id + '&state=' + state + '&intro=' + e.currentTarget.dataset.type + '&tid=' + that.data.teamId + '&isManager=' + e.currentTarget.dataset.ismanager + '&teamName=' + this.data.team.teamName,
     })
   },
   getTeam(e){

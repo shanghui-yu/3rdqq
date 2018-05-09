@@ -123,6 +123,9 @@ Page({
   },
   onLoad: function (e) {
     var that = this
+    if (e.share) {
+      this.setData({ share: e.share })
+    }
     that.setData({ comId: e.id, state: e.state})
     // 获取赛事的基本信息
     if (e.id) {
@@ -285,7 +288,8 @@ Page({
           })
           let dayList = this.data.dayList
           if (refresh){
-            dayList = [...res.data.rows, ...dayList]
+            let datas = res.data.rows.reverse()
+            dayList = [...datas, ...dayList]
           }else{
             dayList =  [...dayList, ...res.data.rows]
           }
@@ -301,7 +305,7 @@ Page({
     console.log(this.data.dayList);
     if (this.data.tabSel=='0'){
       let index = this.data.dayList.length-1
-      this.getMorePage(1, this.data.dayList[index].date,'refresh')
+      this.getMorePage(1, this.data.dayList[0].date,'refresh')
     }else{
       wx.stopPullDownRefresh()
     }
@@ -323,7 +327,7 @@ Page({
     this.loading = true
     console.log(this.data.dayList);
     if (this.data.tabSel == '0' && this.data.dayList.length>10) {
-      this.getMorePage(3, this.data.dayList[0].date)
+      this.getMorePage(3, this.data.dayList[index].date)
     }
   },
 
@@ -333,7 +337,7 @@ Page({
   onShareAppMessage: function () {
     var that = this
     return {
-      path: '/pages/competition/competition?id=' + that.data.comId
+      path: '/pages/competition/competition?id=' + that.data.comId + "&share=1"
     }
   }
 })

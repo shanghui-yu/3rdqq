@@ -40,7 +40,7 @@ page{
 .info_list>view {
   width: 110rpx;
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   justify-content: center; 
   flex-direction: column;
 }
@@ -151,10 +151,11 @@ page{
   box-sizing: border-box;
   background: #fff;
 }
-.state view:first-child{
+.state button:first-child{
   margin-right: 20px;
 }
-.state view{
+.state button{
+  padding: 0;
   width: 259rpx;
   height: 80rpx;
   line-height: 80rpx;

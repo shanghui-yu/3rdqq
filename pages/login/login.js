@@ -88,10 +88,12 @@ Page({
       header: { "Content-Type": "application/x-www-form-urlencoded" },
       method: 'POST',
       success: (res) => {
+        this.setData({ submitLock: false })
         wx.hideLoading()
         let { code, message } = res.data
         if (code =='1021'){
           $.phone = this.data.phone
+          $.uid = this.data.userId
           wx.navigateBack({
             delta: 1
           })

@@ -85,7 +85,7 @@ Page({
       success:  (res1)=> {
         if (res1.data.code == 1021) {
           if (res1.data.rows == 0) {
-            this.setData({ noMatch: 1 })
+            this.setData({ noMatch: 1, competition:[]})
           } else {
             this.setData({ competition: res1.data.rows })
           }

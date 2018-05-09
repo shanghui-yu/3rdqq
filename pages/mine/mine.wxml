@@ -49,7 +49,7 @@
           <view class='line'></view>
         </view>
       </view>
-      <view class='isNull' wx:if="{{noMatch == 1}}">
+      <view class='isNull' wx:if="{{noMatch == 1&&!competition.length}}">
         <image src='/images/no_match@3x.png'></image>
         <view>是时候来场比赛了</view>
       </view>

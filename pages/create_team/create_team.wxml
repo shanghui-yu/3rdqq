@@ -73,7 +73,7 @@
       </picker>
     </view>
   </view>
-  <view class='btn_create' bindtap='toCreate'>创建球队</view>
+  <view class='btn_create' bindtap='toCreate'>{{edit?'保存':'创建球队'}}</view>
 </view>
 <view wx:if="{{showArea}}" class="area-Picker">
   <view class="mark" bindtap="cencal"></view>

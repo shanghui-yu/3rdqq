@@ -24,6 +24,13 @@ Page({
     this.setData({ showSuspension: !this.data.showSuspension })
   },
   onLoad: function (e) {
+    console.log(e);
+    if (e.teamName){
+      this.setData({ teamName: e.teamName })
+    }
+    if (e.share) {
+      this.setData({ share: e.share })
+    }
     if (e.uid) {
       var uid = e.uid
       if (e.uid == $.uid){
@@ -72,7 +79,7 @@ Page({
   onShareAppMessage: function () {
     var that = this
     return {
-      path: '/pages/player_info/player_info?uid=' + that.data.uid
+      path: '/pages/player_info/player_info?uid=' + that.data.uid + "&share=1"
     }
   },
   toDetail: function (e) {
@@ -108,12 +115,16 @@ Page({
               let { code, message} = res.data
               wx.showToast({
                 title: message,
+                icon: 'none',
+                duration: 2000
               })
               if (code == 1017) {
                wx.setStorageSync( "admin","1" )
-                wx.navigateBack({
-                  delta: 1
-                })
+               setTimeout(() => {
+                 wx.navigateBack({
+                   delta: 1
+                 })
+               }, 1000);
               }
             },
           })
@@ -125,8 +136,14 @@ Page({
     let type = e.currentTarget.dataset.type
     let that =this
     let formid = e.detail.formId
+    let showTitle = ''
+    if (type=='1'){
+      showTitle = '是否退出' + that.data.teamName + '俱乐部'
+    }else{
+      showTitle = '将' + that.data.userInfo.nickname + '移出球队'
+    }
     wx.showModal({
-      title: '将' + that.data.userInfo.nickname + '移出球队',
+      title: showTitle,
       success: function (res) {
         if (res.confirm) {
           wx.request({
@@ -138,17 +155,23 @@ Page({
               let { code, message } = res.data
               wx.showToast({
                 title: message,
+                icon: 'none',
+                duration: 2000
               })
-              if (code == 1015) {
+              if (code == '1015') {
                 if (type=='1'){
-                  wx.navigateBack({
-                    delta: 2
-                  })
+                  setTimeout(() => {
+                    wx.navigateBack({
+                      delta: 2
+                    })
+                  }, 1000);
                 }else{
                  wx.setStorageSync( "admin","1" )
-                  wx.navigateBack({
-                    delta: 1
-                  })
+                 setTimeout(() => {
+                   wx.navigateBack({
+                     delta: 1
+                   })
+                 }, 1000);
                 }
               }
             },
@@ -172,12 +195,16 @@ Page({
               let { code, message } = res.data
               wx.showToast({
                 title: message,
+                icon: 'none',
+                duration: 2000
               })
-              if (code == 1015) {
+              if (code == '1021') {
                wx.setStorageSync( "admin","1" )
-                wx.navigateBack({
-                  delta: 1
-                })
+               setTimeout(() => {
+                 wx.navigateBack({
+                   delta: 1
+                 })
+               }, 1000);
               }
             },
           })

@@ -136,6 +136,10 @@ margin-right: 10rpx;
 .show_img {
   display: flex;
 }
+.show_img.imgs{
+  flex: 1;
+  justify-content: flex-end;
+}
 .show_img view {
   height: 100rpx;
   color:#b0b0b0;

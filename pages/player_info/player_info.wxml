@@ -21,7 +21,7 @@
         <view>{{userInfo.startGoalYear}}年</view>
         <view>球龄</view>
       </view>
-      <view>
+      <view wx:if="{{userInfo.teamLocation1 != ''}}">
         <view>{{userInfo.teamLocation1}}</view>
         <view>位置1</view>
       </view>
@@ -107,10 +107,10 @@
         <button formType="submit">退出球队</button>
     </form>
     <form bindsubmit="check" data-yn='1' report-submit wx:if='{{intro == 2}}'>
-        <button formType="submit">同意</button>
+        <button formType="submit">同意入队</button>
     </form>
     <form bindsubmit="check" data-yn='0' report-submit wx:if='{{intro == 2}}'>
-        <button formType="submit">驳回</button>
+        <button formType="submit">拒绝入队</button>
     </form>
     <!-- <view bindtap='clear' data-type="0" wx:if='{{intro == 1&& !isme||isManager==1 && !isme}}'>移出球队</view>
     <view bindtap="toMover" wx:if='{{intro == 1&& !isme||isManager==1&& !isme }}'>移交领队</view>
@@ -120,7 +120,7 @@
   </view>
 </view>
 
-<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{!showSuspension}}">
+<view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{share&&!showSuspension}}">
   <image mode="scaleToFill" src="../../images/icon_menu.png"></image>
 </view>
 <view class="suspension" wx:if="{{showSuspension}}">

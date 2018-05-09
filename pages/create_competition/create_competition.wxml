@@ -22,7 +22,7 @@
   <view class='form_logo'>
     <view>赛事logo</view>
     <view>
-      <view class='show_img'>
+      <view class="{{competition.logo != ''?'show_img imgs':'show_img'}}">
         <image wx:if="{{competition.logo != ''}}" bindtap='uploadImg' src='{{competition.logo}}'></image>
         <view wx:if="{{competition.logo == ''}}">添加赛事logo</view>    
       </view>

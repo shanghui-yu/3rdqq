@@ -34,8 +34,8 @@
       <text>性别</text>
     </view>
     <view class='form_radio'>
-      <text bindtap='setSex' data-sex='2' class='{{userInfo.sex == 2 ? "selSex" : ""}}'>男</text>
-      <text bindtap='setSex' data-sex='1' class='{{userInfo.sex == 1 ? "selSex" : ""}}'>女</text>
+      <text bindtap='setSex' data-sex='1' class='{{userInfo.sex == 1 ? "selSex" : ""}}'>男</text>
+      <text bindtap='setSex' data-sex='2' class='{{userInfo.sex != 1 ? "selSex" : ""}}'>女</text>
     </view>
   </view>
   <view class='form_line'>
