@@ -57,7 +57,7 @@ page {
 }
 
 .line {
-  width: 690rpx;
+  width:100%;
   margin: 0 auto;
   border-top: 1px solid rgb(235, 235, 235);
 }
@@ -69,7 +69,9 @@ page {
 .logo_wrap {
   width: 140rpx;
   height: 140rpx;
-  border: 1px solid #2093FD;
+  border: 1px solid gainsboro;
+  border-radius: 8rpx;
+  overflow: hidden;
 }
 
 .logo_wrap image {

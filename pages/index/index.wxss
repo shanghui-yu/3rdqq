@@ -81,7 +81,7 @@ page {
   display: flex;
 }
 .line {
-  width:690rpx;
+  width:100%;
   margin: 0 auto;
   /* height: 10px;    */
    /* background: red;  */
@@ -93,7 +93,9 @@ page {
 .logo_wrap {
   width: 140rpx;
   height: 140rpx;
-  border: 1px solid #999;
+  border: 1px solid gainsboro;
+  border-radius: 8rpx;
+  overflow: hidden;
 }
 .logo_wrap image {
   width: 100%;
@@ -188,6 +190,12 @@ page {
   height: 45rpx;
   line-height: 45rpx;
   font-size: 32rpx;
+}
+.list_title view:first-child{
+  flex: 1;
+}
+.list_title .select_btn{
+  width: 280rpx;
 }
 .list_title view:first-child {
   width: 280rpx;

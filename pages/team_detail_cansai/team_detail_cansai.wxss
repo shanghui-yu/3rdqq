@@ -4,12 +4,11 @@ page {
 }
 .padd{
   padding-bottom: 100rpx;
-  box-sizing: border-box;
 }
 .top{
   height: 320rpx;
   text-align: center;
-  background: #0096f4;
+  background: #2B70F0;
   display: flex;
   flex-direction: column;
   justify-content: center;

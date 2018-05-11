@@ -151,7 +151,7 @@ Page({
   // 选择地区
   changeArea: function (e) {
     this.data.changeDis == 1 ? this.setData({changeDis: 0}) : this.setData({changeDis: 1})
-    this.setData({ catchStatus: !this.data.catchStatus })
+    this.setData({ catchStatus: !this.data.catchStatus,searchKey:'' })
   },
   // 选择地区
   changeList: function (e) {

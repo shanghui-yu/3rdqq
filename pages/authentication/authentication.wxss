@@ -204,6 +204,8 @@ page,container {
 .form_line input:last-child {
   text-align: right;
   font-size: 28rpx;
+  flex: 1;
+  padding: 0 0 0 20rpx;
 }
 .subData {
   height: 100rpx;

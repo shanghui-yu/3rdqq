@@ -1,9 +1,4 @@
-<scroll-view scroll-y="{{catchStatus}}" 
-  bindscrolltoupper="Refresh"
-  bindscrolltolower="ReachBottom" 
-  class='container'
-  upper-threshold="50" style="height:{{wh}}px" >
-  <view class='search'>
+<view class='search'>
     <view class='inner_search'>
       <view class='dispicker' bindtap='changeArea'>
         <image src="{{img.position}}"></image>
@@ -12,12 +7,17 @@
       </view>
       <view class='input_search' wx:if="{{changeDis == 0}}">
         <image src='{{img.search}}'></image>
-        <input bindinput='searchKey' value='{{searchKey}}' placeholder='输入要搜索的球队名称'></input>
+        <input bindconfirm='searchKey' value='{{searchKey}}' placeholder='输入要搜索的球队名称'></input>
         <image src='{{img.close}}' bindtap='closeSearch'></image>
       </view>
     </view>
   </view>
   <view class='break'></view>
+<scroll-view scroll-y="{{catchStatus}}" 
+  bindscrolltoupper="Refresh"
+  bindscrolltolower="ReachBottom" 
+  class='container'
+  upper-threshold="50" style="height:{{wh}}px" >
   <view class='competitionList' wx:if="{{changeDis == 0}}">
     <view class='competitionItem' wx:for="{{team}}" wx:key="*this">
       <view class='item' bindtap='toDetail' data-id='{{item.crteid}}'>

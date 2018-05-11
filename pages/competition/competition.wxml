@@ -46,13 +46,17 @@
               <view class='item_vs' wx:if="{{com.endType == '2'}}">VS</view>
               <view class='item_time' wx:if="{{com.endType == 1}}">{{com.gameTime}}</view>
               
-              <view wx:if="{{com.videoType!='0' && com.endType == '3'}}" style='background:#7BBCFC'>直播回放</view>
+              <!-- <view wx:if="{{com.videoType!='0' && com.endType == '3'}}" style='background:#7BBCFC'>直播回放</view>
               <view wx:if="{{com.videoType!='0' &&com.endType == '2'}}" style='background:#62B623'>正在直播</view>
-              <view wx:if="{{com.videoType!='0' &&com.endType == '1'}}" style='background:#FA6D6C'>即将直播</view>
+              <view wx:if="{{com.videoType!='0' &&com.endType == '1'}}" style='background:#FA6D6C'>即将直播</view> -->
 
-              <view wx:if="{{com.videoType=='0' &&com.endType == '3'}}" class="no-video" style='color:#96c6ee'>已结束</view>
+              <!-- <view wx:if="{{com.videoType=='0' &&com.endType == '3'}}" class="no-video" style='color:#96c6ee'>已结束</view>
               <view wx:if="{{com.videoType=='0' &&com.endType == '2'}}" class="no-video" style='color:#93b86b'>比赛中</view>
-              <view wx:if="{{com.videoType=='0' &&com.endType == '1'}}" class="no-video" style='color:#e18a92'>未开始</view>
+              <view wx:if="{{com.videoType=='0' &&com.endType == '1'}}" class="no-video" style='color:#e18a92'>未开始</view> -->
+
+              <view wx:if="{{com.endType == '3'}}" class="no-video" style='color:#999'>已结束</view>
+              <view wx:if="{{com.endType == '2'}}" class="no-video" style='color:#93b86b'>比赛中</view>
+              <view wx:if="{{com.endType == '1'}}" class="no-video" style='color:#e18a92'>未开始</view>
             </view>
             <view class='guest'>
               <view class='host_logo'>
@@ -77,25 +81,29 @@
       </view> -->
       <view class='cupList'>
         <view class='cupList_item' wx:for="{{point}}" wx:key="point">
-          <view class='cup_item' wx:if="{{item.stageName}}">
+          <view class='cup_item' wx:if="{{item.stageType=='2'}}">
             <view class='cup_title'>{{item.stageName}}</view>
             <view class='cup_team' wx:for="{{item.rows1}}" wx:key="item" wx:for-item="cup">
-              <view style="color: {{item.rows1[0].ishost == 1? '#2B70F0 ': ''}}">{{cup.teamA}}</view>
+              <view style="color: {{cup.teamAgoals>cup.teamBgoals? '#2B70F0 ': ''}}">{{cup.teamA}}</view>
               <image src="{{'http://img.haoq360.com' + cup.teamAIocUrl}}"></image>
-              <view>{{cup.teamAgoals}} - {{cup.teamBgoals}}</view>
+              <view wx:if="{{cup.teamAgoals=='-1'&&cup.teamBgoal=='-1'}}">-</view>
+              <view wx:else>{{cup.teamAgoals}} - {{cup.teamBgoals}}</view>
               <image src="{{'http://img.haoq360.com' + cup.teamBIocUrl}}"></image>         
-              <view style="color: {{item.teams[1].ishost == 1? '#2B70F0 ': ''}}">{{cup.teamB}}</view>
+              <view style="color: {{cup.teamAgoals < cup.teamBgoals? '#2B70F0 ': ''}}">{{cup.teamB}}</view>
             </view>
           </view>
-          <view class='tableItem' wx:else>
+          <view class='tableItem' wx:if="{{item.stageType=='1'}}">
             <view class='table_title'>
-              <view wx:for="{{tableTitle}}" wx:key="{{index}}">{{item}}</view>
+              <view wx:for="{{tableTitle}}" wx:key="{{index}}" wx:for-item="itemName">{{item.SPFName && index=='3'?item.SPFName: itemName}}</view>
             </view>
             <view wx:for="{{item.rows1}}" wx:for-item="team" wx:key="this">
               <view wx:if="{{team.no==1}}" class="names">{{team.group_name}}</view>
               <view class='line_item' >
                 <view>{{team.no}}</view>
-                <view>{{team.teamName}}</view>
+                <view class="team-name">
+                  <image src="{{'http://img.haoq360.com'+ team.teamImg}}" class="icon"></image>
+                  <text>{{team.teamName}}</text>
+                </view>
                 <view>{{team.matchnum}}</view>
                 <view>
                   <text>{{team.SPFValue}}</text>
@@ -124,7 +132,10 @@
           <view>{{item.stageName}}</view>
           <view class='line_item' wx:for="{{item.rows1}}" wx:for-item="team" wx:key="this">
             <view>{{team.no}}</view>
-            <view>{{team.teamName}}</view>
+            <view class="team-name">
+              <image src="{{'http://img.haoq360.com'+ team.teamImg}}" class="icon"></image>
+              <text>{{team.teamName}}</text>
+            </view>
             <view>{{team.matchnum}}</view>
             <view>
               <!-- <text>{{team.win}}/</text>

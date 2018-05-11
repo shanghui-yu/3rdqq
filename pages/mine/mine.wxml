@@ -11,8 +11,12 @@
   </view>
   <view class='user_tab'>
     <view class='tab_list'>
-      <view class='{{tabSel == 1 ? "tabsel":""}}' bindtap='tabChange' data-index='1'>我的赛事</view>
-      <view class='{{tabSel == 2 ? "tabsel":""}}' bindtap='tabChange' data-index='2'>我的球队</view>
+      <view class='{{tabSel == 1 ? "tabsel":""}}' bindtap='tabChange' data-index='1'>
+        <text>我的赛事</text>
+      </view>
+      <view class='{{tabSel == 2 ? "tabsel":""}}' bindtap='tabChange' data-index='2'>
+        <text>我的球队</text>
+      </view>
     </view>
     <view class='competition_list' wx:if="{{tabSel == 1}}">
       <view>

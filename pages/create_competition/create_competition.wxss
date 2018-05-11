@@ -135,6 +135,8 @@ margin-right: 10rpx;
 }
 .show_img {
   display: flex;
+  flex: 1;
+  justify-content: flex-end;
 }
 .show_img.imgs{
   flex: 1;
@@ -205,7 +207,7 @@ margin-right: 10rpx;
   border-bottom: 1px solid #ebebeb;
 }
 .radio_line view:first-child{
-  width: 196rpx;
+  flex:1
 }
 .radio_line switch {
   width: 120rpx;
@@ -234,10 +236,10 @@ margin-right: 10rpx;
   margin:0 54rpx 0 30rpx;
 }
 .form_date>view:last-child> .defal{
-  margin:0 25rpx 0 25rpx;
+  margin:0 40rpx 0 25rpx;
 }
 .form_date>view:last-child picker view {
-  width: 155rpx;
+  width: 180rpx;
   color: #b0b0b0;
 }
 .form_date>view:last-child picker .defalt{

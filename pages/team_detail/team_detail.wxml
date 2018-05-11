@@ -15,7 +15,8 @@
           <text>{{team.number}}</text>
         </view>
         <view class="edit" wx:if="{{team.userid =='领队'}}">
-          <navigator url="/pages/create_team/create_team?edit={{teamId}}" hover-class="none">编辑
+          <navigator url="/pages/create_team/create_team?edit={{teamId}}" hover-class="none">
+            <image src='../../images/edit_icon2.png'></image>编辑
           </navigator>
       </view>
       </view>
@@ -40,10 +41,10 @@
           </view>
           <view class='player_info'>
             <view class='player_name'>
-              <view class='name_wrap'>{{item.name}}</view>
+              <view class='name_wrap'>{{item.realName?item.realName:item.name}}</view>
               <!-- <view class='leader_wrap' wx:if="{{item.isLeader == 1}}">领队</view> -->
               <view class='team_wrap' wx:if="{{item.isPlayer == 1}}">{{item.identity}}</view>
-              <view wx:if="{{item.sigState == '通过'}}" class='regisert_wrap'>
+              <view wx:if="{{item.isPass == 1}}" class='regisert_wrap'>
                 <image src='{{img.register}}'></image>
                 <text>已认证</text>
               </view>
@@ -66,6 +67,31 @@
           <view bindtap='slide' data-index='{{index}}'>
             <view>{{item.leagueName}}</view>
             <image style='transform: {{item.down == 0 ? "rotateZ(180deg)":""}}' src='{{img.down}}'></image>
+          </view>
+          <view class='break'  wx:if="{{item.down == 1}}"></view>
+          <view class='list_title'  wx:if="{{item.down == 1}}">
+            <text>工作人员</text>
+          </view>
+          <view class='com_workerlist'  wx:if="{{item.down == 1}}">
+            <view class='com_worker' wx:for="{{item.workers}}" wx:key="*this" bindtap='check' data-id='{{w.userid}}' wx:for-item="w">
+              <view class='header_wrap'>
+                <image src='{{w.photoUrl?"http://img.haoq360.com"+w.photoUrl:"http://img.haoq360.com"+w.imgurl}}'></image>
+              </view>
+              <view class='player_info'>
+                <view class='player_name'>
+                  <view class='name_wrap'>{{w.name}}</view>
+                  <view class='leader_wrap' wx:if="{{w.isLeader == 1}}">领队</view>
+                  <view class='team_wrap' wx:if="{{w.isTeam == 1}}">队伍</view>
+                  <view wx:if="{{w.isRegister == 1}}" class='regisert_wrap'>
+                    <image src='{{img.register}}'></image>
+                    <text>已认证</text>
+                  </view>
+                </view>
+                <view class='player_pos'>
+                  <view wx:for="{{w.pos}}" wx:for-item="pos" wx:key="*this">{{pos}}</view>
+                </view>          
+              </view>            
+            </view>        
           </view>
           <view class='list_title' wx:if="{{item.down == 1}}">
             <text>参赛人员</text>
@@ -92,37 +118,13 @@
               </view>
             </view>
           </view>
-          <view class='break'  wx:if="{{item.down == 1}}"></view>
-          <view class='list_title'  wx:if="{{item.down == 1}}">
-            <text>工作人员</text>
-          </view>
-          <view class='com_workerlist'  wx:if="{{item.down == 1}}">
-            <view class='com_worker' wx:for="{{item.worker}}" wx:key="*this" bindtap='check' data-id='{{w.userid}}' wx:for-item="w">
-              <view class='header_wrap'>
-                <image src='{{w.header}}'></image>
-              </view>
-              <view class='player_info'>
-                <view class='player_name'>
-                  <view class='name_wrap'>{{w.name}}</view>
-                  <view class='leader_wrap' wx:if="{{w.isLeader == 1}}">领队</view>
-                  <view class='team_wrap' wx:if="{{w.isTeam == 1}}">队伍</view>
-                  <view wx:if="{{w.isRegister == 1}}" class='regisert_wrap'>
-                    <image src='{{img.register}}'></image>
-                    <text>已认证</text>
-                  </view>
-                </view>
-                <view class='player_pos'>
-                  <view wx:for="{{w.pos}}" wx:for-item="pos" wx:key="*this">{{pos}}</view>
-                </view>          
-              </view>            
-            </view>        
-          </view>
+          
         </view>
       </view>
-    </view>
-    <view class='isNull' wx:if="{{com&&!com.length}}">
-      <image src='/images/no_match@3x.png'></image>
-      <view>暂无数据</view>
+      <view class='isNull' wx:if="{{com&&!com.length}}">
+          <image src='/images/no_match@3x.png'></image>
+          <view>暂无数据</view>
+        </view>
     </view>
   </view>
    <!-- <view class='compe_list' wx:if="{{tabSel == 0}}">
@@ -219,7 +221,7 @@
   </view> -->
   <view class='shooterList' wx:if="{{tabSel == 1}}">
     <view class='break'></view>
-    <view class='shooter_table'>
+    <view class='shooter_table' wx:if="{{shooter&&shooter.length}}">
       <view class='shooter_table_title'>
         <view wx:for="{{shooterTitle}}" wx:key="{{index}}">{{item}}</view>
       </view>
@@ -264,13 +266,17 @@
               <!-- <text>第{{com.round}}轮</text> -->
             </view>
           </view>
-          <view class='y_time'>{{com.gameTime}}</view>
+          <view class='y_time'>{{com.times}}</view>
           <view class='y_tab'>
-            <view><image src='{{"http://img.haoq360.com" + com.teamAIocUrl}}'></image></view>
-            <view class="teamName">{{com.teamA}}</view>
-            <view>{{com.state}}</view>
-            <view class="teamName">{{com.teamB}}</view>
-            <view><image src='{{"http://img.haoq360.com" + com.teamBIocUrl}}'></image></view>
+            <view class="left">
+              <view class="teamName">{{com.teamA}}</view>
+              <view><image src='{{"http://img.haoq360.com" + com.teamAIocUrl}}'></image></view>
+            </view>
+            <view class="fen">{{com.state}}</view>
+            <view class="right">
+                <view><image src='{{"http://img.haoq360.com" + com.teamBIocUrl}}'></image></view>
+                <view class="teamName">{{com.teamB}}</view>
+            </view>
           </view>
         </view>
       </view>
@@ -301,6 +307,7 @@
     </view>
   </view>  -->
   <view class='check_player' wx:if="{{tabSel == 3}}">
+      <view class='break'></view>
       <view class='all_player'>
         <view wx:for="{{applyPlayer}}" bindtap='check' data-id='{{item.usinid}}' data-type='2' wx:key="{{index}}" class='allplsyer_item'>
           <view class='header_wrap'>

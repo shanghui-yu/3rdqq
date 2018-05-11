@@ -7,7 +7,7 @@
     </view>
     <view class='input_search' wx:if="{{changeArea == 0}}">
       <image src='{{img.search}}'></image>
-      <input bindinput='searchKey' value='{{searchKey}}' placeholder='输入要搜索的赛事名称'></input>
+      <input bindconfirm='searchKey' value='{{searchKey}}' placeholder='输入要搜索的赛事名称'></input>
       <image src="/images/close@3x.png" bindtap='closeSearch'></image>
     </view>
   </view>
@@ -39,7 +39,7 @@
             </view>
             <text style='color:#62B623' wx:if="{{item.state == '比赛中'}}">{{item.state}}</text>
             <text style='color:#FA6D6C' wx:if="{{item.state == '报名中'}}">{{item.state}}</text>
-            <text style='color:#7BBCFC' wx:if="{{item.state == '比赛结束'}}">已结束</text>
+            <text style='color:#999' wx:if="{{item.state == '比赛结束'}}">已结束</text>
           </view>
         </view>    
       </view>
@@ -64,7 +64,7 @@
 <view class='area' wx:if="{{changeArea == 1}}">
   <view class='list_title'>
     <view>{{positionDis}}</view>
-    <view>请选择</view>
+    <view class="select_btn">请选择</view>
   </view>
   <view class='list_wrap'>
     <view class='province'>

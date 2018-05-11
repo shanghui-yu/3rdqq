@@ -90,10 +90,10 @@ Page({
       success: (res) => {
         this.setData({ submitLock: false })
         wx.hideLoading()
-        let { code, message } = res.data
+        let { code,rows, message } = res.data
         if (code =='1021'){
           $.phone = this.data.phone
-          $.uid = this.data.userId
+          $.uid = rows.userId
           wx.navigateBack({
             delta: 1
           })

@@ -4,6 +4,9 @@ page {
 }
 .container {
   height: 100%;
+  overflow-y: auto;
+  margin-top: 120rpx;
+  -webkit-overflow-scrolling: touch;
 }
 .search {
   position: fixed;
@@ -88,7 +91,7 @@ page {
   display: flex;
 }
 .line {
-  width:690rpx;
+  width:100%;
   margin: 0 auto;
   height: 2px;  
   /* background: red; */
@@ -103,7 +106,9 @@ page {
 .logo_wrap {
   width: 140rpx;
   height: 140rpx;
-  border: 1px solid #999;
+  border: 1px solid gainsboro;
+  border-radius: 8rpx;
+  overflow: hidden;
 }
 .logo_wrap image {
   width: 100%;

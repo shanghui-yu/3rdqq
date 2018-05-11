@@ -158,7 +158,7 @@ Page({
   // 选择地址
   getDisList: function () {
     this.data.changeArea == 1 ? this.setData({changeArea: 0}) : this.setData({changeArea: 1}) 
-    this.setData({ catchStatus: !this.data.catchStatus })
+    this.setData({ catchStatus: !this.data.catchStatus ,searchKey:''})
   },
   // 选择省份，返回大区列表
   selProvince: function (e) {

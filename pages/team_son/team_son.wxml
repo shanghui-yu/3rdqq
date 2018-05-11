@@ -6,7 +6,9 @@
   <view class="team-des">
     <text class="detail">{{detail.name}}</text>
     <view class="footer">
-      <text>{{detail.provinceName}}</text>
+      <text wx:if="{{detail.provinceCode==-1 && detail.cityCode==-1}}">{{detail.provinceName}}</text>
+      <text wx:if="{{detail.provinceCode==-1}}">全国</text>
+      <text wx:if="{{detail.cityCode==-1}}">全部</text>
       <text>{{detail.startTime}}-{{detail.endTime}}</text>
       <text>{{detail.subLeagueNum}}个子赛事</text>
     </view>
@@ -22,7 +24,7 @@
           <view class='item_title'>{{item.name}}</view>
           <view class='item_detail'>
             <view class='item_position'>
-              <image src='{{img.location}}'></image>
+              <image src='/images/position-small@3x.png'></image>
               <text>{{item.provinceName}} {{item.cityName}}</text>
             </view>
             <view class="son" wx:if="{{item.isParentLeague=='1'}}">
@@ -30,7 +32,7 @@
             </view>
             <text style='color:#62B623' wx:if="{{item.state == '比赛中'}}">{{item.state}}</text>
             <text style='color:#FA6D6C' wx:if="{{item.state == '报名中'}}">{{item.state}}</text>
-            <text style='color:#7BBCFC' wx:if="{{item.state == '比赛结束'}}">已结束</text>
+            <text style='color:#999' wx:if="{{item.state == '比赛结束'}}">已结束</text>
           </view>
         </view>
       </view>

@@ -1,13 +1,15 @@
-<view class="container padd">
+<view class="container">
     <view class="top">
       <image src="http://img.haoq360.com{{detail.teamIoc}}" class="team-logo"></image>
       <text class="team-name">{{detail.teamName}}</text>
     </view>
-    <view class="wraper">
+    <view class="{{detail.teamId?'wraper padd':wraper}}">
       <view class="item" wx:if="{{detail.rows1.length}}">
           <view class="title">工作人员</view>
-          <view class="list" wx:for="{{detail.rows1}}" wx:key="index">
-            <image  class="avatar" src="http://img.haoq360.com{{item.photoUrl}}"></image>
+          <view bindtap="check" class="list" wx:for="{{detail.rows1}}" wx:key="index" 
+            data-isManager='{{item.isManager}}' 
+            data-id='{{item.userid}}'>
+            <image  class="avatar" src="{{item.photoUrl.indexOf('http')>-1?item.photoUrl:'http://img.haoq360.com'+item.photoUrl}}"></image>
             <view class="content">
               <view class="info">
                 <text class="name">{{item.nickName}}</text>
@@ -21,7 +23,9 @@
       </view>
       <view class="item" wx:if="{{detail.rows.length}}">
         <view class="title">参赛人员</view>
-        <view class="list" wx:for="{{detail.rows}}" wx:key="index">
+        <view class="list" bindtap="check" wx:for="{{detail.rows}}" wx:key="index"  
+          data-isManager='{{item.isManager}}' 
+          data-id='{{item.userid}}'>
           <image class="avatar" src="http://img.haoq360.com{{item.photoUrl}}"></image>
           <view class="content">
             <view class="info">
@@ -37,12 +41,12 @@
       </view>
     </view>
 </view>
-<view class="fix_footer" wx:if="{{detai.cretid}}">
+<view class="fix_footer" wx:if="{{detail.teamId}}">
   <image class="logo" src="http://img.haoq360.com{{detail.teamIoc}}"></image>
   <view class="text">{{detail.teamName}}</view>
   <navigator 
     hover-class="none"
-    url="/pages/team_detail/team_detail?id={{detai.cretid}}" 
+    url="/pages/team_detail/team_detail?id={{detail.teamId}}" 
     class="look">查看主页
     <image src="../../images/forward.png"></image>
   </navigator>

@@ -57,7 +57,7 @@
           <input placeholder='点击输入证件号码' bindinput='getInput' data-index='1' placeholder-style='color:#b0b0b0;' value="{{subCardId}}"></input>        
         </view>        
       </view>
-      <view class='subData' bindtap='subData'>{{authenticationPass==2?'重新提交审核':'提交'}}</view>
+      <view class='subData' bindtap='subData'>{{reason?'重新提交审核':'提交'}}</view>
     </view>
   </view>
 </view>

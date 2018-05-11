@@ -6,6 +6,9 @@ page {
 }
 .container{
   background: #fff;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .padd{
   padding-bottom: 100rpx;
@@ -201,7 +204,7 @@ page {
 .cup_team {
   height: 60rpx;
   display: flex;
-  font-size: 26rpx;
+  font-size: 20rpx;
   /* line-height: 37rpx; */
   align-items: center;
   justify-content: center;
@@ -243,12 +246,13 @@ page {
   padding: 20rpx 0;
   text-align: center;
   color: #858585;
+  font-size: 20rpx;
 }
 .table_title view:first-child,.table_title view:nth-child(3),.table_title view:nth-child(6),.table_title view:nth-child(7){
   width:55rpx;
 }
 .table_title view:nth-child(2){
-  width:220rpx;
+  width:290rpx;
 }
 .table_title view:nth-child(4){
   width:180rpx;
@@ -277,14 +281,31 @@ page {
   border-bottom: 1px solid #ebebeb;
   color: #1c1c1c;
 }
+.line_item .icon{
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+  float: left;
+}
+.team-name text{
+  width: 260rpx;
+  text-align: left;
+  display: inline-block;
+  overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
 .line_item view:first-child,.line_item view:nth-child(3),.line_item view:nth-child(6),.line_item view:nth-child(7){
   width:55rpx;
 }
 .line_item view:nth-child(2){
-  width:220rpx;
+  width:290rpx;
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 .line_item view:nth-child(4){
   width:180rpx;

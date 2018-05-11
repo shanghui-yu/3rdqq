@@ -47,6 +47,8 @@ Page({
     e.state ? this.setData({urlState: e.state}) : this.setData({urlState: 0})
     e.intro ? this.setData({intro: e.intro}):this.setData({intro: -1})
     e.tid ? this.setData({tid:e.tid}) : this.setData({tid: -1})
+    console.log( e.isManager,e.state,e.intro);
+    
     // 个人信息
     wx.request({
       url: 'https://xapi.haoq360.com/index.php/api/user/getPersonDetail',
@@ -97,7 +99,7 @@ Page({
     var showTitle = ''
     e.currentTarget.dataset.yn == 0 ? showTitle = '拒绝' + that.data.userInfo.nickname + '入队' : showTitle = '将' + that.data.userInfo.nickname + '加入球队'
     wx.showModal({
-      title: showTitle,
+      content: showTitle,
       success: function (res) {
           if (res.confirm) {
           wx.request({
@@ -143,7 +145,7 @@ Page({
       showTitle = '将' + that.data.userInfo.nickname + '移出球队'
     }
     wx.showModal({
-      title: showTitle,
+      content: showTitle,
       success: function (res) {
         if (res.confirm) {
           wx.request({
@@ -183,7 +185,7 @@ Page({
   toMover(e){
     let formid = e.detail.formId
     wx.showModal({
-      title: '将领队移交给' + this.data.userInfo.nickname ,
+      content: '将领队移交给' + this.data.userInfo.nickname ,
       success:  (res) =>{
         if (res.confirm) {
           wx.request({

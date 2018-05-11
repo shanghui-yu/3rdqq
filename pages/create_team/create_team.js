@@ -44,6 +44,9 @@ Page({
   },
   onLoad(option){
     if (option.edit){
+      wx.setNavigationBarTitle({
+        title: '球队信息'
+      })
       this.setData({ edit: option.edit})
       this.getTeamDetail(option.edit)
     }

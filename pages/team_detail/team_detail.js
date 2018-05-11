@@ -1,4 +1,5 @@
 // pages/competition/competition.js
+import formatTime from "../../utils/util.js";
 const $ = getApp().globalData
 Page({
   data: {
@@ -6,8 +7,8 @@ Page({
       position: '/images/position-big@2x.png',
       slidedown: '/images/slidedown@2x.png',
       search: '/images/search@3x.png',
-      location: '/images/position-small@3x.png',
-      num: '/images/player@3x.png',
+      location: '/images/position-small@3x_1.png',
+      num: '/images/player@3x_1.png',
       register: '/images/authentication@3x.png',
       down: '/images/down@3x.png'
     },
@@ -25,7 +26,8 @@ Page({
       show:false,
       title:'',
       mes:''
-    }
+    },
+    teamCardChange:0
   },
   toggetshowSuspension () {
     this.setData({ showSuspension: !this.data.showSuspension })
@@ -67,10 +69,10 @@ Page({
       success:  (res)=> {
         if (res.data.code == 1012) {
           this.setData({ team: res.data.rows })
-          if (res.data.rows.userid == '不是该球队成员') {
-            this.setData({ myTeam: 0, nav: ['队员', '射手榜', '对阵表'] })
-          } else {
+          if (res.data.rows.userid == '领队'|| res.data.rows.userid=='队务') {
             this.setData({ myTeam: 1, nav: ['队员', '射手榜', '对阵表', '入队审核'] })
+          } else {
+            this.setData({ myTeam: 0, nav: ['队员', '射手榜', '对阵表'] })
           }
         }
       },
@@ -115,7 +117,6 @@ Page({
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         method: 'POST',
         success: function (res) {
-          console.log(res)
           if (res.data.code == 1039) {
             that.setData({ shooter: res.data.rows })
           }else{
@@ -130,7 +131,7 @@ Page({
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         method: 'POST',
         success: function (res) {
-          console.log(res)
+          console.log(res,656)
           if (res.data.code == 1021) {
             res.data.rows.forEach((val, index) => {
               if (index == 0) {
@@ -139,7 +140,8 @@ Page({
                 val.down = 0
               }
             })
-            that.setData({ year: res.data.rows })
+            let datas = that.filedata(res.data.rows)
+            that.setData({ year: datas })
           }else{
             that.setData({ year:[] })
           }
@@ -149,6 +151,22 @@ Page({
       this.getShenqing()     
     }
     this.setData({ tabSel: e.currentTarget.dataset.index })
+  },
+  filedata(data){
+    let  weeks = ['周日','周一','周二','周三','周四','周五','周六']
+    if (data&& data.length) {
+      data.forEach(element => {
+        element.league.forEach(element => {
+          let time = new Date(element.gameDate.time)
+          let weekDay = weeks[time.getDay()]
+          element.times = time.toLocaleDateString() + weekDay+ element.gameTime
+          element.state = element.state.replace(':', '-')
+          element.scheTitle = element.scheTitle.substring(0, 6)
+          console.log(element.times);
+        });
+      })
+      return data
+    }
   },
   slide: function (e) {
     var ind = e.currentTarget.dataset.index
@@ -163,8 +181,10 @@ Page({
     this.setData({ year })
   },
   changeCard: function (e) {
+    console.log(12);
+    
     var card = e.currentTarget.dataset.card
-    console.log(card)
+    this.setData({teamCardChange:card})
     wx.showLoading({
       title: '加载中',
     })
@@ -200,6 +220,7 @@ Page({
   onShareAppMessage: function () {
     var that = this
     return {
+      title:this.data.team.teamName,
       path: '/pages/team_detail/team_detail?id=' + that.data.teamId + "&share=1",
       success: function (res) {
       },

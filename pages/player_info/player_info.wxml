@@ -1,7 +1,15 @@
-<view class="container">
+<view class="container padd">
   <view class='user_board'>
     <image src='{{userInfo.imgurl}}'></image>
     <view>{{userInfo.nickname}}</view>
+    <view class="message-status" wx:if="{{urlState == 1||isManager==1||isme}}">
+      <form bindsubmit="clear" data-type="1" report-submit wx:if='{{intro == 1 && isme}}'>
+          <view class="edit">
+              <image src='../../images/edit_icon.png'></image>退出 
+            <button formType="submit" formType="submit">退出球队</button>
+          </view>
+      </form>
+    </view>
   </view>
   <view class='list_wrap'>
     <view class='info_list'>
@@ -46,7 +54,7 @@
             <view class='item_detail'>
               <view class='item_position'>
                 <image src='{{img.location}}'></image>
-                <view>{{item.cityName}} {{item.region}}</view>
+                <view>{{item.provName}} {{item.region}}</view>
               </view>
               <view>
                 <text style='color:#62B623' wx:if="{{item.state == '比赛中'}}">{{item.state}}</text>
@@ -79,7 +87,7 @@
             <view class='item_detail'>
               <view class='item_position'>
                 <image src='{{img.location}}'></image>
-                <view>{{item.cityName}} {{item.region}}</view>
+                <view>{{item.provName}} {{item.region}}</view>
               </view>
               <view class='item_num'>
                 <image src='{{img.player}}'></image>
@@ -96,29 +104,25 @@
         <image src='/images/null@3x.png'></image>
         <view>万事俱备 只差球队</view>
       </view>
-  <view class='state' wx:if="{{urlState == 1||isManager==1||isme}}">
+  
+</view>
+<view class='state' wx:if="{{urlState == 1||isManager==1}}">
     <form bindsubmit="clear" data-type="0" report-submit wx:if='{{intro == 1&& !isme||isManager==1 && !isme}}'>
         <button formType="submit">移出球队</button>
     </form>
     <form bindsubmit="toMover" report-submit wx:if='{{intro == 1&& !isme||isManager==1&& !isme }}'>
         <button formType="submit">移交领队</button>
     </form>
-    <form bindsubmit="clear" data-type="1" report-submit wx:if='{{intro == 1 && isme}}'>
+    <!-- <form bindsubmit="clear" data-type="1" report-submit wx:if='{{intro == 1 && isme}}'>
         <button formType="submit">退出球队</button>
-    </form>
+    </form> -->
     <form bindsubmit="check" data-yn='1' report-submit wx:if='{{intro == 2}}'>
         <button formType="submit">同意入队</button>
     </form>
     <form bindsubmit="check" data-yn='0' report-submit wx:if='{{intro == 2}}'>
         <button formType="submit">拒绝入队</button>
     </form>
-    <!-- <view bindtap='clear' data-type="0" wx:if='{{intro == 1&& !isme||isManager==1 && !isme}}'>移出球队</view>
-    <view bindtap="toMover" wx:if='{{intro == 1&& !isme||isManager==1&& !isme }}'>移交领队</view>
-    <view bindtap="clear" data-type="1" wx:if='{{intro == 1 && isme}}'>退出球队</view>
-    <view bindtap='check' data-yn='1' wx:if='{{intro == 2}}'>同意</view>
-    <view bindtap='check' data-yn='0' wx:if='{{intro == 2}}'>驳回</view> -->
   </view>
-</view>
 
 <view class="suspension_btn" bindtap="toggetshowSuspension" wx:if="{{share&&!showSuspension}}">
   <image mode="scaleToFill" src="../../images/icon_menu.png"></image>

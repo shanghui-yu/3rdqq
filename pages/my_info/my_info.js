@@ -186,7 +186,7 @@ Page({
         if (len == 2) {
           wx.showToast({
             title: '最多两个位置',
-            image: '/images/err.png'
+            icon: 'none'
           })
         } else {
           positionList[i].sel = 1
@@ -246,6 +246,13 @@ Page({
     var posList = that.data.positionList
     var props = that.data.props
     var sw = 0
+    if(this.data.birTime == ''){
+      wx.showToast({
+        title: '请选择出生年月',
+        icon: 'none'
+      })
+      return 
+    }
     // 判断位置
     var posArr = [], propsArr = [], teamLocation1 = '', teamLocation2 = '', specialTech1 = '', specialTech2 = ''
     posList.forEach(val => {
@@ -257,7 +264,7 @@ Page({
     if (that.data.userInfo.name.trim()==''){
       wx.showToast({
         title: '请填写昵称',
-        image: '/images/err.png'
+        icon: 'none'
       })
       return 
     }
@@ -272,7 +279,7 @@ Page({
     } else {
       wx.showToast({
         title: '至少一个位置',
-        image: '/images/err.png'
+        icon: 'none'
       })      
     }
     // 获取特点
@@ -293,7 +300,7 @@ Page({
     } else {
       wx.showToast({
         title: '至少一个特点',
-        image: '/images/err.png'
+        icon: 'none'
       })
     }
     if (sw == 2) {
@@ -371,7 +378,7 @@ Page({
       } else {
         wx.showToast({
           title: '请填写昵称',
-          image: '/images/err.png'
+          icon: 'none'
         })
       }
     }

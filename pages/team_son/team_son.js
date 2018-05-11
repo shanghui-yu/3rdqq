@@ -44,7 +44,7 @@ Page({
   getSonList (leagueId){
     wx.request({
       url: $.api + 'league/findLeagueByParentLeagueId',
-      data: { leagueId, page:this.data.page},
+      data: { leagueId, page:this.data.page,rows:20},
       header: { "Content-Type": "application/x-www-form-urlencoded" },
       method: 'POST',
       success:  (res)=> {
@@ -77,9 +77,9 @@ Page({
     }
   },
   onReachBottom () {
-    if (!this.data.loading){
-      this.setData({ loading:true })
-      this.getSonList()
-    }
+    // if (!this.data.loading){
+    //   this.setData({ loading:true })
+    //   this.getSonList()
+    // }
   }
 })

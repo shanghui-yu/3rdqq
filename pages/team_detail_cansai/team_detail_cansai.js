@@ -22,6 +22,20 @@ Page({
   onReady: function () {
   
   },
+  check(e){
+    console.log(122)
+    var that = this
+    var id = e.currentTarget.dataset.id
+    var state = ''
+    // if (id != $.uid && that.data.team.userid == '领队') {
+    //   state = 1
+    // } else {
+    //   state = 0
+    // }
+    wx.navigateTo({
+      url: '/pages/player_info/player_info?uid=' + e.currentTarget.dataset.id,
+    })
+  },
   getdetail: function (leagueid, toteamid) {
     wx.showLoading({
       title: '加载中',

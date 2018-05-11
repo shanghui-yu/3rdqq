@@ -12,11 +12,11 @@ page {
 }
 .logo {
   width: 240rpx;
-  height: 205rpx;
+  height: 240rpx;
 }
 .logo image {
   width: 240rpx;
-  height: 205rpx;  
+  height: 240rpx;  
 }
 .form {
   margin-top: 45rpx;

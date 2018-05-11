@@ -15,6 +15,7 @@
     "pages/login/login",
     "pages/team_detail_cansai/team_detail_cansai",
     "pages/team_son/team_son",
+    "pages/web/web",
     "pages/areaList/areaList"
   ],
   "tabBar": {

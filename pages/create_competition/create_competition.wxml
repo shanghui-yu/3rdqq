@@ -1,14 +1,14 @@
 <scroll-view scroll-y="{{showArea}}" style="height:{{wh}}" class="container" >
-  <view class='banner'>
+  <navigator url="/pages/web/web" hover-class="none" class='banner'>
     <image src='{{img.banner}}' mode='widthFix'></image>
-  </view>
+  </navigator>
   <view class='form_line'>
     <view>赛事全称</view>
-    <input placeholder='请输入赛事全称' bindinput='getFullName'  placeholder-style='color:#b0b0b0;text-align:right' maxlength='8'></input>
+    <input placeholder='请输入赛事全称' bindinput='getFullName'  placeholder-style='color:#b0b0b0;text-align:right'></input>
   </view>
   <view class='form_line'>
     <view>赛事简称</view>
-    <input placeholder='请输入赛事简称' bindinput='getName' placeholder-style='color:#b0b0b0;text-align:right' maxlength='8'></input>
+    <input placeholder='请输入赛事简称' bindinput='getName' placeholder-style='color:#b0b0b0;text-align:right'></input>
   </view>
   <view class='form_position'>
     <view>所在区域</view>
@@ -24,7 +24,7 @@
     <view>
       <view class="{{competition.logo != ''?'show_img imgs':'show_img'}}">
         <image wx:if="{{competition.logo != ''}}" bindtap='uploadImg' src='{{competition.logo}}'></image>
-        <view wx:if="{{competition.logo == ''}}">添加赛事logo</view>    
+        <!-- <view wx:if="{{competition.logo == ''}}">添加赛事logo</view>     -->
       </view>
       <view class='img_btn' bindtap='uploadImg' wx:if="{{competition.logo == ''}}">
         <view>+</view>

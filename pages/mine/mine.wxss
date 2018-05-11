@@ -60,24 +60,30 @@ page {
   background: #fff;
 }
 .tab_list {
-  padding: 0 20rpx;
   display: flex;
   justify-content: space-between;
+  background:#ebebeb;
 }
 .tab_list view{
-  width: 340rpx;
+  flex: 1;
   height: 80rpx;
   text-align: center;
   line-height: 80rpx;
-  border: 1px solid #b0b0b0;
   border-radius: 6rpx;
   font-size: 26rpx;
   color: #666;
 }
-.tab_list .tabsel {
-  color: #333;
-  background: #ebebeb;
-  border-color: #ebebeb;
+.tab_list view:first-child{
+  border-right: 1rpx solid #fff;
+}
+.tab_list text{
+  height: 78rpx;
+  display: inline-block;
+}
+.tab_list .tabsel text{
+  color:#333;
+border-bottom:2px solid #2B70F0;
+
 }
 /*赛事列表  */
 .competitiom_item {}
@@ -88,7 +94,9 @@ page {
 .logo_wrap {
   width: 140rpx;
   height: 140rpx;
-  border: 1px solid #2093FD;  
+  border: 1px solid gainsboro;  
+  border-radius: 8rpx;
+  overflow: hidden;
 }
 .logo_wrap image{
   width: 140rpx;
@@ -96,12 +104,12 @@ page {
 }
 .compete_info{
   width: 550rpx;
-  padding: 20rpx 0;
+  padding: 10rpx 0;
   padding-left: 20rpx;
   
 }
 .competitiom_item .line, .team_item .line {
-  width: 690rpx;
+  width:100%;
   margin: 0 auto;
   border-top: 1px solid #ebebeb;
   height: 0px;
@@ -110,17 +118,26 @@ page {
   line-height: 40rpx;
   color: #333;
   font-size: 28rpx;
+  display: -webkit-box;
+  height: 80rpx;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 .compete_info>view:last-child {
   display: flex;
   height: 40rpx;
-  margin-top: 30rpx;
+  margin-top: 6rpx;
   justify-content: space-between;
   font-size: 26rpx;
   align-items: center;
 }
 .compete_position {
   display: flex;
+  flex: 1;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   align-items: center;
 }
 .compete_position image {
@@ -187,7 +204,7 @@ page {
   line-height: 80rpx;
   border: 1px solid #2093FD;
   font-size: 28rpx;
-  color: #858585;
+  color: #2093FD;
   text-align: center;
   border-radius: 6rpx;
   margin: 0 25rpx;
@@ -208,7 +225,11 @@ page {
 
 .son {
   color: #2e72ed;
-  margin-right: 40rpx;
+  width: 230rpx;
+  margin:0 10rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .son image{
   margin:0 10rpx;

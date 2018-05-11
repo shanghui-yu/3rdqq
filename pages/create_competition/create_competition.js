@@ -94,33 +94,34 @@ Page({
     if (that.data.fullName == '') {
       wx.showToast({
         title: '请填写赛事全称',
-        image: '/images/err.png'
+        icon: 'none'
       })
       that.setData({ lock: false })
     } else {
       if (that.data.cityName == '') {
         wx.showToast({
           title: '请选择地区',
-          image: '/images/err.png'
+          icon: 'none'
         })
         that.setData({ lock: false })
       } else {
         if (that.data.getLogo != 1) {
           wx.showToast({
             title: '请选择赛事Logo',
-            image: '/images/err.png'
+            icon: 'none'
           })
           that.setData({ lock: false })
         } else {
           wx.showLoading({
             title: '创建中',
+            icon: 'none'
           })
           var subData = {}
           subData.referred = that.data.comName
           subData.name = that.data.fullName
           subData.provinceName = that.data.provinceName
           subData.cityName = that.data.cityName
-          that.data.competition.startSign == '起始时间' ? subData.toSignUpStart = '' : subData.toSignUpStar = that.data.competition.startSign
+          that.data.competition.startSign == '起始时间' ? subData.toSignUpStart = '' : subData.toSignUpStart = that.data.competition.startSign
           that.data.competition.endSign == '结束时间' ? subData.toSignUpEnd = '' : subData.toSignUpEnd = that.data.competition.endSign
           that.data.competition.startMatch == '起始时间' ? subData.eventUpTime = '' : subData.eventUpTime = that.data.competition.startMatch
           that.data.competition.endMatch == '结束时间' ? subData.eventEndTime = '' : subData.eventEndTime = that.data.competition.endMatch

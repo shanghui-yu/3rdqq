@@ -29,14 +29,20 @@ Page({
     tabSel: 1
   },
   onLoad: function (option) {
-    let tabSel = wx.getStorageSync('tabSel')
-    if (tabSel){
-      this.setData({ tabSel })
-      wx.removeStorageSync('tabSel')
+    try {
+      let tabSel = wx.getStorageSync('tabSel')
+      if (tabSel){
+        this.setData({ tabSel })
+        wx.removeStorageSync('tabSel')
+      }
+    } catch (error) {
     }
     var that = this
     var wid = $.wid
     var uid = $.uid
+    console.log($, 546);
+    
+    console.log(wid);
     that.setData({ uid })
     // 个人信息
     wx.request({

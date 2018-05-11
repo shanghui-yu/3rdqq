@@ -84,7 +84,12 @@ Page({
     })
   },
   uploadInfo (obj){
-    let index = obj.cardType -1
+    let index = null
+    if(obj.cardType == '0'){
+      index = 0
+    }else{
+      index = obj.cardType -1
+    }
     let jec = this.data.uploadImg
     let datas = [obj.photoUrl, obj.cardImg1, obj.cardImg2]
     jec[index] = this.forObject(datas, jec[index])
@@ -96,11 +101,12 @@ Page({
     })
   },
   forObject (data, olddata){
-    olddata.forEach((element,index )=> {
-      console.log(element, index,6);
-      
-      element.file = data[index] 
-    });
+    if(olddata && olddata.length){
+      olddata.forEach((element,index )=> {
+        console.log(element, index,6);
+        element.file = data[index] 
+      });
+    }
     return olddata
   },
   changeType: function (e) {
@@ -125,10 +131,18 @@ Page({
         // var nameList = ['photoUrl', 'cardImg', 'cardImgTwo']
         try {
           const src = res.tempFilePaths[0]
-          wx.setStorageSync("Imgindex", e.currentTarget.dataset.index)
-          wx.navigateTo({
-            url: `../upload/upload?src=${src}`
-          })
+          if(that.data.selType == '0' && e.currentTarget.dataset.index == '0'){
+            wx.setStorageSync("Imgindex", e.currentTarget.dataset.index)
+            wx.navigateTo({
+              url: `../upload/upload?src=${src}`
+            })
+          }else{
+            that.uplodFileFc(e.currentTarget.dataset.index, src)
+          }
+          // wx.setStorageSync("Imgindex", e.currentTarget.dataset.index)
+          // wx.navigateTo({
+          //   url: `../upload/upload?src=${src}`
+          // })
         } catch (error) {
         }
       },
@@ -143,7 +157,6 @@ Page({
         wx.removeStorageSync("Imgindex")
         wx.removeStorageSync('Cutting')
       }
-      
     } catch (error) {
     }
   },

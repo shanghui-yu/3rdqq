@@ -100,7 +100,7 @@ Page({
     },
     tabSel: 0,
     // 积分赛表格title
-    tableTitle: ['排名', '球队', '场次', '胜/负/点胜/点负', '进/失', '净胜', '积分'],
+    tableTitle: ['排名', '球队', '场次', '胜/平/负', '进/失', '净胜', '积分'],
     checkLine: [
       { title: '即将直播', color: '#FA6D6C'},
       { title: '直播回放', color: '#62B623'},
@@ -142,7 +142,7 @@ Page({
             res.data.rows.leagueIoc = 'http://img.haoq360.com' + res.data.rows.leagueIoc
             that.setData({ competition: res.data.rows})
           }else{
-            that.setData({ competition: [], message: res.data.message})
+            that.setData({ competition: {}, message: res.data.message})
           }
         }
       })
@@ -167,11 +167,11 @@ Page({
     }
   },
   toJoin(){
-    wx.showToast({
-      title: '请下载Hao球APP报名赛事',
-      icon: 'none',
-      duration: 2000
-    })
+    // wx.showToast({
+    //   title: '请下载Hao球APP报名赛事',
+    //   icon: 'none',
+    //   duration: 2000
+    // })
   },
   toggetshowSuspension(){
     this.setData({showSuspension:!this.data.showSuspension})
@@ -208,7 +208,6 @@ Page({
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         data: { leagueId: that.data.comId,page: shooterPage},
         success: function(res) {
-          console.log(res)
           if (res.data.code == 1039) {
             shooterPage++
             that.setData({shooter:res.data.rows, shooterPage})
@@ -302,8 +301,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    console.log(this.data.dayList);
-    if (this.data.tabSel=='0'){
+    if (this.data.tabSel=='0'&&this.data.dayList.length){
       let index = this.data.dayList.length-1
       this.getMorePage(1, this.data.dayList[0].date,'refresh')
     }else{
@@ -311,11 +309,11 @@ Page({
     }
   },
   toase(){
-    wx.showToast({
-      title: '下载Hao球APP查看更多',
-      icon: 'none',
-      duration: 2000
-    })
+    // wx.showToast({
+    //   title: '下载Hao球APP查看更多',
+    //   icon: 'none',
+    //   duration: 2000
+    // })
   },
   /**
    * 页面上拉触底事件的处理函数
@@ -337,6 +335,7 @@ Page({
   onShareAppMessage: function () {
     var that = this
     return {
+      title:that.data.competition.name,
       path: '/pages/competition/competition?id=' + that.data.comId + "&share=1"
     }
   }
