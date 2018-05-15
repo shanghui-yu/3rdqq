@@ -148,28 +148,28 @@ Page({
     if (that.data.logo == '') {
       wx.showToast({
         title: '请选择球队Logo',
-        image: '/images/err.png'
+         icon: 'none'
       })
       that.setData({ lock: false })
     } else {
       if (that.data.teamName == '') {
         wx.showToast({
           title: '请填写球队名称',
-          image: '/images/err.png'
+           icon: 'none'
         })   
         that.setData({ lock: false })    
       } else {
         if (that.data.shortName == '') {
           wx.showToast({
             title: '请填写球队简称',
-            image: '/images/err.png'
+             icon: 'none'
           })
           that.setData({ lock: false })            
         } else {
           if (that.data.region == '') {
             wx.showToast({
               title: '请选择所在区域',
-              image: '/images/err.png'
+               icon: 'none'
             })  
             that.setData({ lock: false })            
           } else {
@@ -217,7 +217,7 @@ Page({
                 } else {
                   wx.showToast({
                     title: ress.message,
-                    image: '/images/error.png'
+                    icon: 'none'
                   })
                 }
               }

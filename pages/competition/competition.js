@@ -126,7 +126,10 @@ Page({
     if (e.share) {
       this.setData({ share: e.share })
     }
-    that.setData({ comId: e.id, state: e.state})
+    if (e.state) {
+      this.setData({ state: e.state })
+    }
+    that.setData({ comId: e.id})
     // 获取赛事的基本信息
     if (e.id) {
       wx.showLoading({
@@ -167,11 +170,11 @@ Page({
     }
   },
   toJoin(){
-    // wx.showToast({
-    //   title: '请下载Hao球APP报名赛事',
-    //   icon: 'none',
-    //   duration: 2000
-    // })
+    wx.showToast({
+      title: '请下载Hao球APP报名赛事',
+      icon: 'none',
+      duration: 2000
+    })
   },
   toggetshowSuspension(){
     this.setData({showSuspension:!this.data.showSuspension})
@@ -227,7 +230,6 @@ Page({
         method: 'POST',
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         success: function(res) {
-          console.log(res)
           if (res.data.code == 1029) {
             that.setData({teamList: res.data.rows})
             wx.hideLoading()
@@ -323,7 +325,6 @@ Page({
       return
     }
     this.loading = true
-    console.log(this.data.dayList);
     if (this.data.tabSel == '0' && this.data.dayList.length>10) {
       this.getMorePage(3, this.data.dayList[index].date)
     }

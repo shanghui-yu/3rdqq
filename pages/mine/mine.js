@@ -74,7 +74,7 @@ Page({
       success: (res1)=> {
         if (res1.data.code == 1021) {
           if (res1.data.rows.length == 0) {
-            this.setData({ noTeam: 1 })
+            this.setData({ noTeam: 1,team:[] })
           } else {
             this.setData({ team: res1.data.rows })
           }
@@ -100,12 +100,12 @@ Page({
     })
   },
   onShow: function () {
-    if (!$.phone){
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-      return
-    }
+    // if (!$.phone){
+    //   wx.navigateTo({
+    //     url: '/pages/login/login',
+    //   })
+    //   return
+    // }
     var that = this
     var wid = $.wid
     // 个人信息
@@ -114,56 +114,22 @@ Page({
       data: { unionid: wid },
       header: { "Content-Type": "application/x-www-form-urlencoded" },
       method: 'POST',
-      // dataType: 'json',
-      // responseType: 'text',
       success: function (res) {
-        console.log(res)
         if (res.data.code == 2000) {
           var obj = {}
           obj.name = res.data.obj.nickname
           obj.header = res.data.obj.imgurl
           that.setData({ userInfo: obj })
           $.userInfo_3rd = res.data.obj
-          // 参加球队
-          wx.request({
-            url: $.api + 'user/findWoCreateTeam',
-            data: { userid: res.data.obj.userid, page: 1 },
-            header: { "Content-Type": "application/x-www-form-urlencoded" },
-            method: 'POST',
-            success: function (res1) {
-              console.log(res1)
-              if (res1.data.code == 1021) {
-                if (res1.data.rows.length == 0) {
-                  that.setData({ noTeam: 1 })
-                } else {
-                  that.setData({ team: res1.data.rows })
-                }
-              }
-            },
-          })
-          // 参加联赛
-          wx.request({
-            url: $.api + 'user/findMyLeague',
-            data: { userid: res.data.obj.userid },
-            header: { "Content-Type": "application/x-www-form-urlencoded" },
-            method: 'POST',
-            success: function (res1) {
-              console.log(res1)
-              if (res1.data.code == 1021) {
-                if (res.data.rows == 0) {
-                  that.setData({ noMatch: 1 })
-                } else {
-                  that.setData({ competition: res1.data.rows })
-                }
-              }
-            },
-          })
+           // 参加球队
+           that.getMyteam()
+           // 参加联赛
+           that.getMyLeague()
         }
       },
     })
   },
   tabChange: function (e) {
-    console.log(e.currentTarget.dataset.index);
     if (e.currentTarget.dataset.index=='1'){
       this.getMyLeague()
     }else{
@@ -252,7 +218,6 @@ Page({
     }
   },
   onPullDownRefresh: function () {
-    // console.log(123)
     wx.stopPullDownRefresh()
   }
 })

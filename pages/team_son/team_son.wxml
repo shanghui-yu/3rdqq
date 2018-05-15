@@ -44,4 +44,4 @@
     </view>
   </view>
 </view>
-<!-- <view class="to-join" bindtap="toJoin" wx:if="{{state=='报名中'}}">赛事报名</view> -->
+<view class="to-join" bindtap="toJoin" wx:if="{{state=='报名中'}}">赛事报名</view>

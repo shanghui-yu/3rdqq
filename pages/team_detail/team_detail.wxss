@@ -6,7 +6,9 @@ page {
 }
 .container {
   background: #fff;
-  overflow: scroll;
+  height: 100%;
+   overflow-y: auto;
+   -webkit-overflow-scrolling: touch;
 }
 .bottom{
   padding-bottom: 80rpx;
@@ -19,7 +21,6 @@ page {
   display: flex;
   align-items: center;
   padding: 0 20rpx; 
-    /* width: 750rpx;   */
   justify-content: space-between;
 }
 .banner .competition_logo {

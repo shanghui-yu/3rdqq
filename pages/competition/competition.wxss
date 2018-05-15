@@ -215,12 +215,17 @@ page {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.cup_team view:first-child{
+  text-align: right;
+}
 .cup_team view:nth-child(3) {
   color: #1c1c1c;
   height: 40rpx;
   line-height: 40rpx;
   font-size: 28rpx;
   margin: 0 15rpx;
+  width: 70rpx;
+  text-align: center;
 } 
 .cup_team image {
   width:48rpx;

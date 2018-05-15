@@ -10,12 +10,14 @@ Page({
     loading:false,
     detail:{},
     wh:'',
+    state:'',
     competition:[]
   },
   onLoad (e) {
-    console.log(e);
     let wh = wx.getSystemInfoSync().windowWidth / 16 * 9+'px'
-    this.setData({  state: e.state })
+    if (e.state) {
+      this.setData({  state: e.state })
+    }
     this.setData({ wh })
     this.getSonList(e.id)
     this.getSonDetail(e.id)

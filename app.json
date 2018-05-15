@@ -22,16 +22,16 @@
     "selectedColor": "#2B70F0",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/team/team",
         "text": "赛事",
         "iconPath": "/images/icon-index-unselect.png",
         "selectedIconPath": "/images/icon-index-select.png"
       },
       {
-        "pagePath": "pages/team/team",
-        "text": "球队",
-        "iconPath": "/images/icon-team-unselect.png",
-        "selectedIconPath": "/images/icon-team-select.png"
+         "pagePath": "pages/index/index",
+         "text": "球队",
+         "iconPath": "/images/icon-team-unselect.png",
+         "selectedIconPath": "/images/icon-team-select.png"
       },
       {
         "pagePath": "pages/mine/mine",

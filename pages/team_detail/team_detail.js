@@ -19,7 +19,7 @@ Page({
     // 射手榜title
     shooterTitle: ['排名', '球员', '进球数'],
     player:[
-      { realName: '留底', photoUrl:'',}
+      { realName: '', photoUrl:'',}
     ],
     showSuspension: false,
     confim:{
@@ -27,7 +27,8 @@ Page({
       title:'',
       mes:''
     },
-    teamCardChange:0
+    teamCardChange:0,
+    teamCardChangetwo:false
   },
   toggetshowSuspension () {
     this.setData({ showSuspension: !this.data.showSuspension })
@@ -131,7 +132,6 @@ Page({
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         method: 'POST',
         success: function (res) {
-          console.log(res,656)
           if (res.data.code == 1021) {
             res.data.rows.forEach((val, index) => {
               if (index == 0) {
@@ -160,9 +160,10 @@ Page({
           let time = new Date(element.gameDate.time)
           let weekDay = weeks[time.getDay()]
           element.times = time.toLocaleDateString() + weekDay+ element.gameTime
-          element.state = element.state.replace(':', '-')
           element.scheTitle = element.scheTitle.substring(0, 6)
-          console.log(element.times);
+          if (element.state) {
+            element.state = element.state.replace(':', '-')
+          }
         });
       })
       return data
@@ -181,25 +182,25 @@ Page({
     this.setData({ year })
   },
   changeCard: function (e) {
-    console.log(12);
-    
     var card = e.currentTarget.dataset.card
     this.setData({teamCardChange:card})
-    wx.showLoading({
-      title: '加载中',
-    })
     var that = this
     if (card == 0) {
       that.setData({ cardSel: 0 })
-      wx.hideLoading()
     } else {
+      that.setData({ cardSel: 1 })
+      if (this.data.teamCardChangetwo){
+        return
+      }
+      wx.showLoading({
+        title: '加载中',
+      })
       wx.request({
         url: $.api + 'Team/getTeamUserplayers',
         data: { teamId: that.data.teamId },
         header: { "Content-Type": "application/x-www-form-urlencoded" },
         method: 'POST',
         success: function (res) {
-          console.log(res)
           if (res.data.code == 1021) {
             res.data.rows.forEach(function (val, index) {
               if (index == 0) {
@@ -209,9 +210,15 @@ Page({
               }
             })
             wx.hideLoading()
-            that.setData({ com: res.data.rows, cardSel: 1 })
+            that.setData({
+              com: res.data.rows,
+              teamCardChangetwo:true
+            })
           }else{
-            that.setData({ com:[] })
+            that.setData({
+              com: [],
+              teamCardChangetwo: true
+            })
           }
         },
       })
