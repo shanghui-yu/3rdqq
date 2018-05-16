@@ -26,7 +26,9 @@ Page({
       { icon: '/images/message@3x.png', title: '我的消息' },
     ],
     
-    tabSel: 1
+    tabSel: 1,
+    showUser:false,
+    authorize:true
   },
   onLoad: function (option) {
     try {
@@ -40,10 +42,10 @@ Page({
     var that = this
     var wid = $.wid
     var uid = $.uid
-    console.log($, 546);
-    
-    console.log(wid);
-    that.setData({ uid })
+    this.checkUser()
+    if (uid) {
+      that.setData({ uid })
+    }
     // 个人信息
     wx.request({
       url: 'https://xapi.haoq360.com/index.php/api/user/queryUser',
@@ -100,12 +102,7 @@ Page({
     })
   },
   onShow: function () {
-    // if (!$.phone){
-    //   wx.navigateTo({
-    //     url: '/pages/login/login',
-    //   })
-    //   return
-    // }
+    this.checkUser()
     var that = this
     var wid = $.wid
     // 个人信息
@@ -128,6 +125,58 @@ Page({
         }
       },
     })
+  },
+  checkUser() {
+    wx.getSetting({
+      success: (res) => {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.checkSession({
+            success:(res)=>{
+              this.setData({ showUser: true,authorize:false })
+            }
+          })
+        }
+      }
+    })
+  },
+  setUid(o){
+    let sessionKey = wx.getStorageSync('sessionKey')
+    wx.request({
+      url: 'https://xapi.haoq360.com/index.php/api/user/Decrypt',
+      data: { sessionKey, encryptedData: o.encryptedData, iv:o.iv},
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      method: 'POST',
+      success: (res3)=> {
+        if (res3.data.code == 2000) {
+          if (res3.data.obj.phone){
+            $.phone = res3.data.obj.phone
+          }else{
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+          }
+          $.uid = res3.data.obj.userid
+          $.wid = res3.data.obj.weixinId
+          this.onLoad()
+        }
+      },
+    })
+  },
+  userinfo: function (res){
+    if (res.detail.userInfo) {
+      this.setData({ showUser: false })
+      this.setUid(res.detail)
+    } else {
+      this.setData({ showUser: true })
+    }
+  },
+  clicks(e){
+    this.setData({ showUser: !this.data.showUser })
+    if(e.currentTarget.dataset=='0'&& !this.data.authorize){
+      wx.switchTab({
+        url: '/pages/index/index'
+      })
+    }
   },
   tabChange: function (e) {
     if (e.currentTarget.dataset.index=='1'){

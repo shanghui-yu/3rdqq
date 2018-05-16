@@ -91,6 +91,16 @@
     </view>
   </view>
 </view>
+<view class="get-user" wx:if="{{showUser}}">
+    <view class="weui_dialog">
+        <view class="weui_title">用户未授权</view>
+        <view class="weui_dialog_bd">你需要先开启【用户信息】，才能使用此功能</view>
+        <view class="weui_footer">
+          <button bindtap="clicks" plain hover-class="none" data-index="0">取消</button>
+          <button open-type="getUserInfo" bindtap="clicks" plain data-index="1" hover-class="none"  bindgetuserinfo="userinfo">确认</button>
+        </view>
+    </view>
+</view>
 
 <view class='btn_team' wx:if="{{tabSel == 2}}">
   <view bindtap='getTeam' data-index='1'>加入现有球队</view>

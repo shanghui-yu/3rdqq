@@ -25,7 +25,54 @@ Page({
       { title: '比赛中', color: '#62B623' },
     ],
     address:{},
+    showUser:false,
     catchStatus:true
+  },
+  checkUser() {
+    wx.getSetting({
+      success: (res) => {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.checkSession({
+            success:(res)=>{
+              this.setData({ showUser: true,authorize:false })
+            }
+          })
+        }
+      }
+    })
+  },
+  setUid(o){
+    let sessionKey = wx.getStorageSync('sessionKey')
+    wx.request({
+      url: 'https://xapi.haoq360.com/index.php/api/user/Decrypt',
+      data: { sessionKey, encryptedData: o.encryptedData, iv:o.iv},
+      header: { "Content-Type": "application/x-www-form-urlencoded" },
+      method: 'POST',
+      success: (res3)=> {
+        if (res3.data.code == 2000) {
+          if (res3.data.obj.phone){
+            $.phone = res3.data.obj.phone
+          }else{
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+          }
+          $.uid = res3.data.obj.userid
+          $.wid = res3.data.obj.weixinId
+        }
+      },
+    })
+  },
+  userinfo: function (res){
+    if (res.detail.userInfo) {
+      this.setData({ showUser: false })
+      this.setUid(res.detail)
+    } else {
+      this.setData({ showUser: true })
+    }
+  },
+  clicks(e){
+    this.setData({ showUser: !this.data.showUser })
   },
   onLoad: function () {
     var that = this
@@ -225,13 +272,10 @@ Page({
   },
   // 创建赛事
   toCreate: function () {
+    this.checkUser()
     if ($.phone){
       wx.navigateTo({
         url: '/pages/create_competition/create_competition',
-      })
-    }else{
-      wx.navigateTo({
-        url: '/pages/login/login',
       })
     }
   },

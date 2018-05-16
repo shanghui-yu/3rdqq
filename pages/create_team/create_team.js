@@ -206,14 +206,23 @@ Page({
                 that.setData({ lock: false })
                 let ress = res.data
                 if (ress.code == 1007) {
-                  try {
-                    wx.setStorageSync('tabSel', '2')
-                    setTimeout(() => {
-                      wx.switchTab({
-                        url: '/pages/mine/mine',
-                      })
-                    }, 1000);
-                  } catch (error) {}
+                  wx.showModal({
+                    title: '建队成功',
+                    content: '分享球队,招募球员',
+                    showCancel:false,
+                    success: (res)=> {
+                      if (res.confirm) {
+                        try {
+                          wx.setStorageSync('tabSel', '2')
+                          setTimeout(() => {
+                            wx.switchTab({
+                              url: '/pages/mine/mine',
+                            })
+                          }, 1000);
+                        } catch (error) {}
+                      }
+                    }
+                  })
                 } else {
                   wx.showToast({
                     title: ress.message,

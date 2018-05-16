@@ -15,14 +15,15 @@ App({
             data: {code:res.code},
             header: { "Content-Type": "application/x-www-form-urlencoded" },
             success: function (res1) {
-              console.log(res1,666666)
               // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
               var sessionKey = res1.data.session_key
+              try {
+                wx.setStorageSync('sessionKey', sessionKey)
+              } catch (error) {}
               wx.getUserInfo({
                 success: function(res2) {
                   // console.log(that)
                   // that.globalData.userInfo = res2.userInfo
-                  console.log(res2,22222)
                   wx.request({
                     url: 'https://xapi.haoq360.com/index.php/api/user/Decrypt',
                     data: { sessionKey, encryptedData: res2.encryptedData, iv:res2.iv},
