@@ -29,7 +29,7 @@ Page({
         if (!res.authSetting['scope.userInfo']) {
           wx.checkSession({
             success:(res)=>{
-              this.setData({ showUser: true,authorize:false })
+              this.setData({ showUser: true })
             }
           })
         }
@@ -70,6 +70,7 @@ Page({
     this.setData({ showUser: !this.data.showUser })
   },
   onLoad: function () {
+    this.checkUser()
     // 添加搜索开关
     var that = this
     wx.showLoading({
@@ -224,16 +225,27 @@ Page({
     })
   },
   toCreate: function () {
-    this.checkUser()
-    if ($.phone){
-      wx.navigateTo({
-        url: '/pages/create_team/create_team',
-      })
-    }else{
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    }
+    wx.getSetting({
+      success: (res) => {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.checkSession({
+            success:(res)=>{
+              this.setData({ showUser: true })
+            }
+          })
+        }else{
+          if ($.phone){
+            wx.navigateTo({
+              url: '/pages/create_team/create_team',
+            })
+          }else{
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+          }
+        }
+      }
+    })
   },
   // 取消搜索
   closeSearch: function () {

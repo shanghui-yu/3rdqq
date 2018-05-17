@@ -34,7 +34,7 @@ Page({
         if (!res.authSetting['scope.userInfo']) {
           wx.checkSession({
             success:(res)=>{
-              this.setData({ showUser: true,authorize:false })
+              this.setData({ showUser: true })
             }
           })
         }
@@ -75,6 +75,7 @@ Page({
     this.setData({ showUser: !this.data.showUser })
   },
   onLoad: function () {
+    this.checkUser()
     var that = this
     wx.showLoading({
       title: '加载中',
@@ -241,9 +242,6 @@ Page({
     that.setData({ status: 1, address,loading: false, page: 2 })
     !provinceCode ? provinceCode = -1 : ''
     !cityCode ? cityCode = -1 : ""
-    console.log(cityCode)
-    console.log(provinceCode)
-    console.log(e.currentTarget.dataset.name,123)
     that.setData({ catchStatus: true })
     wx.request({
       url: $.api + 'league/findLeague',
@@ -272,16 +270,27 @@ Page({
   },
   // 创建赛事
   toCreate: function () {
-    this.checkUser()
-    if ($.phone){
-      wx.navigateTo({
-        url: '/pages/create_competition/create_competition',
-      })
-    }else{
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    }
+    wx.getSetting({
+      success: (res) => {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.checkSession({
+            success:(res)=>{
+              this.setData({ showUser: true })
+            }
+          })
+        }else{
+          if ($.phone){
+            wx.navigateTo({
+              url: '/pages/create_competition/create_competition',
+            })
+          }else{
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+          }
+        }
+      }
+    })
   },
   onShareAppMessage: function () {
     

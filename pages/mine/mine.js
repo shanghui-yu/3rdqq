@@ -172,7 +172,7 @@ Page({
   },
   clicks(e){
     this.setData({ showUser: !this.data.showUser })
-    if(e.currentTarget.dataset=='0'&& !this.data.authorize){
+    if(e.currentTarget.dataset.index=='0'){
       wx.switchTab({
         url: '/pages/index/index'
       })

@@ -141,7 +141,7 @@ Page({
       title: this.data.teamName,
       path: `/pages/team_detail/team_detail?id=${this.data.teamId}`,
       success:(res)=>{
-        wx.navigateTo({
+        wx.redirectTo({
           url: '/pages/team_detail/team_detail?id=' + this.data.teamId,
         })
       }
@@ -160,7 +160,6 @@ Page({
       return
     }
     var that = this
-    this.setData({confimShow: true})
     this.setData({ lock:true })
     if (that.data.logo == '') {
       wx.showToast({
