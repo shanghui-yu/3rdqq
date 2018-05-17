@@ -277,6 +277,10 @@ Page({
       wx.navigateTo({
         url: '/pages/create_competition/create_competition',
       })
+    }else{
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
     }
   },
   onShareAppMessage: function () {

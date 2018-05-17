@@ -16,7 +16,9 @@ Page({
     teamName: '',
     lock:false,
     showArea: false, // 是否显示地区选择
-    shortName: ''
+    confimShow:false,
+    shortName: '',
+    teamId:''
   },
   okArea: function () {
     this.setData({ showArea: false })
@@ -50,6 +52,7 @@ Page({
       this.setData({ edit: option.edit})
       this.getTeamDetail(option.edit)
     }
+    wx.hideShareMenu()
   },
   getTeamDetail (id) {
     wx.request({
@@ -109,16 +112,6 @@ Page({
         console.log(this.data.imgs)
       }
     })
-
-    // wx.request({
-    //   url: $.api + 'user/uploadimg',
-    //   method: "POST",
-    //   header: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   data: {img},
-    //   success: (res) => {
-    //     console.log(res)
-    //   }
-    // })
   },
   uploadLogo: function () {
     var that = this
@@ -139,11 +132,35 @@ Page({
   getShortName: function (e) {
     this.setData({shortName: e.detail.value})
   },
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      this.setData({confimShow: false})
+    }
+    return {
+      title: this.data.teamName,
+      path: `/pages/team_detail/team_detail?id=${this.data.teamId}`,
+      success:(res)=>{
+        wx.navigateTo({
+          url: '/pages/team_detail/team_detail?id=' + this.data.teamId,
+        })
+      }
+    }
+  },
+  cencleConfim(){
+    try {
+      wx.setStorageSync('tabSel', '2')
+      wx.switchTab({
+        url: '/pages/mine/mine',
+      })
+    } catch (error) {}
+  },
   toCreate: function () {
     if(this.data.lock){
       return
     }
     var that = this
+    this.setData({confimShow: true})
     this.setData({ lock:true })
     if (that.data.logo == '') {
       wx.showToast({
@@ -206,23 +223,18 @@ Page({
                 that.setData({ lock: false })
                 let ress = res.data
                 if (ress.code == 1007) {
-                  wx.showModal({
-                    title: '建队成功',
-                    content: '分享球队,招募球员',
-                    showCancel:false,
-                    success: (res)=> {
-                      if (res.confirm) {
-                        try {
-                          wx.setStorageSync('tabSel', '2')
-                          setTimeout(() => {
-                            wx.switchTab({
-                              url: '/pages/mine/mine',
-                            })
-                          }, 1000);
-                        } catch (error) {}
-                      }
-                    }
-                  })
+                  if(that.data.edit){
+                    try {
+                      wx.setStorageSync('tabSel', '2')
+                      setTimeout(() => {
+                        wx.switchTab({
+                          url: '/pages/mine/mine',
+                        })
+                      }, 1000);
+                    } catch (error) {}
+                  }else{
+                    that.setData({confimShow: true,teamId:ress.rows.teamId})
+                  }
                 } else {
                   wx.showToast({
                     title: ress.message,

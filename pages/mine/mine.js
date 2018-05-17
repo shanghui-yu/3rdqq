@@ -193,9 +193,14 @@ Page({
     })
   },
   toEdit: function (e) {
+    if(!$.phone){
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+      return
+    }
     var that = this;
     var i = e.currentTarget.dataset.index
-    console.log(e.currentTarget)
     switch (i) {
       case 0:
         wx.navigateTo({
@@ -243,6 +248,12 @@ Page({
     // })
   },
   getTeam: function (e) {
+    if(!$.phone){
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+      return
+    }
     switch (e.currentTarget.dataset.index) {
       case '1':
         wx.switchTab({

@@ -1,3 +1,4 @@
+var aldstat =require("./utils/ald-stat.js");
 //app.js
 // var that = this
 App({

@@ -82,3 +82,19 @@
   <template is="areaPicker" data="{{...areaPicker}}" />
   <view class="picker-footer" bindtap="okArea">确认</view>
 </view>
+
+
+<!-- 创建球队弹窗 -->
+
+<view class="confim" wx:if="{{confimShow}}">
+    <view class="mark"></view>
+    <view class="weui_dialog">
+      <view class="weui_dialog_title">建队成功</view>
+      <view class="weui_dialog_bd">分享球队,招募球员</view>
+      <view class="weui_dialog_ft">
+        <view class="weui_btn_dialog default" bindtap='cencleConfim'>取消</view>
+        <button open-type='share' plain hover-class="none" class="weui_btn_dialog primary" bindtap='apply'>确定</button>
+      </view>
+    </view>
+  </view>
+  

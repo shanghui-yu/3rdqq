@@ -229,6 +229,10 @@ Page({
       wx.navigateTo({
         url: '/pages/create_team/create_team',
       })
+    }else{
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
     }
   },
   // 取消搜索
