@@ -200,8 +200,9 @@
           <view>{{item.teamName}}</view>
           <view class='team_position'>
             <view>
-              <image src='{{img.location}}'></image>
-              <text>{{item.provName}}{{item.region}}</text>
+              <image src='{{img.location}}' wx:if="{{item.provCode}}"></image>
+              <text wx:if="{{item.provCode == -1}}">全国 全部</text>
+              <text wx:else>{{item.provName}} {{item.region}}</text>
             </view>
             <view>已报名{{item.number}}人</view>
           </view>
