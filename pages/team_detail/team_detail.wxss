@@ -177,8 +177,8 @@ page {
   border: 1px solid #acd2fe;  
 }
 .player_name image {
-  width: 36rpx;
-  height: 36rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 .player_pos {
   display: flex;
@@ -377,8 +377,9 @@ text-overflow:ellipsis;
 white-space: nowrap;
 }
 .y_tab .fen{
-  width: 80rpx;
+  width: 106rpx;
   text-align: center;
+  overflow: hidden;
 }
 .y_tab .left{
   justify-content: flex-end;

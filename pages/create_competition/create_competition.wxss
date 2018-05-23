@@ -115,8 +115,8 @@ margin-right: 10rpx;
   display: flex;
   font-size: 28rpx;
   padding: 0 20rpx;
-  height: 175rpx;
   border-bottom: 1px solid #ebebeb;
+  align-items: center;
 }
 .form_logo>view:first-child {
   width: 196rpx;
@@ -128,10 +128,21 @@ margin-right: 10rpx;
   display: flex;
   justify-content: space-between;
 }
-.form_logo>view:last-child image{
+.form_logo .show_img image{
   width: 120rpx;
   height: 120rpx;
-  margin-top: 30rpx;
+  margin:30rpx 0;
+}
+.form_logo .arrow{
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+}
+.form_logo .arrow image{
+  width: 28rpx;
+  height: 28rpx;
 }
 .show_img {
   display: flex;
