@@ -257,7 +257,7 @@ Page({
     switch (e.currentTarget.dataset.index) {
       case '1':
         wx.switchTab({
-          url: '/pages/team/team',
+          url: '/pages/index/index',
         })
         break;
       case '2':
@@ -267,7 +267,7 @@ Page({
         break;
       case '3':
         wx.switchTab({
-          url: '/pages/index/index',
+          url: '/pages/team/team',
         })
         break;
       case'4':
