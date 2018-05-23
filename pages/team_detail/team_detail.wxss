@@ -174,7 +174,8 @@ page {
   font-size: 26rpx;
   border-radius: 30rpx;
   margin-left: 20rpx;
-  border: 1px solid #acd2fe;  
+  border: 1rpx solid #acd2fe;  
+  height: 35rpx;
 }
 .player_name image {
   width: 30rpx;
