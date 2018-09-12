@@ -41,7 +41,8 @@
               <view class='item_res' wx:if="{{com.endType == '3'}}">
                 <text wx:if="{{com.teamAGoals == '-1' && com.teamBGoals == '-1'&&com.teamAPenaly =='-1' &&com.teamBPenaly=='-1' }}">-</text>
                 <text wx:if="{{com.teamAGoals == '-1' && com.teamBGoals == '-1'&&com.teamAPenaly !='-1' &&com.teamBPenaly!='-1' }}">{{'0 - 0'+'('+com.teamAPenaly+'-'+com.teamBPenaly+')'}}</text>
-                <text wx:if="{{com.teamAGoals != '-1' || com.teamBGoals != '-1'}}">{{com.teamAGoals+'-'+com.teamBGoals}}</text>
+                <text wx:if="{{(com.teamAGoals != '-1' || com.teamBGoals != '-1') && com.teamAGoals != com.teamBGoals}}">{{com.teamAGoals+'-'+com.teamBGoals}}</text>
+                <text wx:if="{{com.teamAGoals == com.teamBGoals }}">{{com.teamAGoals+'-'+com.teamBGoals+'('+com.teamAPenaly+'-'+com.teamBPenaly+')'}}</text>
               </view>
               <view class='item_vs' wx:if="{{com.endType == '2'}}">VS</view>
               <view class='item_time' wx:if="{{com.endType == 1}}">{{com.gameTime}}</view>
