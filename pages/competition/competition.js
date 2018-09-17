@@ -311,11 +311,11 @@ Page({
     }
   },
   toase(){
-    // wx.showToast({
-    //   title: '下载Hao球APP查看更多',
-    //   icon: 'none',
-    //   duration: 2000
-    // })
+    wx.showToast({
+      title: '下载Hao球APP查看更多',
+      icon: 'none',
+      duration: 2000
+    })
   },
   /**
    * 页面上拉触底事件的处理函数
